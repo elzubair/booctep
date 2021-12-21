@@ -108,19 +108,19 @@ class notifications(models.Model):
     title = models.TextField(max_length=255)
     text = models.TextField(max_length=1000)
     is_read = models.IntegerField(null=True,validators=[MaxValueValidator(3)],default=0)
-    course_id = models.IntegerField(max_length=11, null=True)
+    course_id = models.IntegerField(validators=[MaxValueValidator(11)], null=True)
     sender = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.CharField(max_length=255,null=True)
-    type = models.IntegerField(max_length=3, null=True)
+    type = models.IntegerField(validators=[MaxValueValidator(3)], null=True)
 
 class Messages(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='message_sender_user')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='message_receiver_user')
-    course_id = models.IntegerField(max_length=11, null=True)
+    course_id = models.IntegerField(validators=[MaxValueValidator(11)], null=True)
     text = models.TextField()
     time = models.CharField(max_length=255)
-    delete_id = models.IntegerField(max_length=11, default=0)
-    is_read = models.IntegerField(max_length=3, default=0)
+    delete_id = models.IntegerField(validators=[MaxValueValidator(11)], default=0)
+    is_read = models.IntegerField(validators=[MaxValueValidator(3)], default=0)
 
 class Spam(models.Model):
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="spam_teacher")
@@ -128,7 +128,7 @@ class Spam(models.Model):
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
-    approval_status = models.IntegerField(max_length=3, default=1)
+    approval_status = models.IntegerField(validators=[MaxValueValidator(3)], default=1)
     date_created = models.CharField(max_length=255)
 
 class Refund(models.Model):
@@ -137,15 +137,15 @@ class Refund(models.Model):
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
-    approval_status = models.IntegerField(max_length=3, default=1)
+    approval_status = models.IntegerField(validators=[MaxValueValidator(3)], default=1)
     date_created = models.CharField(max_length=255)
 
 class Admincontrol(models.Model):
-    priority = models.IntegerField(max_length=11)
-    student_tax = models.IntegerField(max_length=11)
-    teacher_tax = models.IntegerField(max_length=11)
+    priority = models.IntegerField(validators=[MaxValueValidator(11)])
+    student_tax = models.IntegerField(validators=[MaxValueValidator(11)])
+    teacher_tax = models.IntegerField(validators=[MaxValueValidator(11)])
     offer_title = models.CharField(max_length=255, default='')
-    offer_percentage = models.IntegerField(max_length=11, null=True)
+    offer_percentage = models.IntegerField(validators=[MaxValueValidator(11)], null=True)
 
 class Card(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
@@ -155,7 +155,7 @@ class Card(models.Model):
     address = models.CharField(max_length=255, default='')
 
 class Discount(models.Model):
-    discount = models.IntegerField(max_length=3, default=0)
+    discount = models.IntegerField(validators=[MaxValueValidator(3)], default=0)
     not_apply_course = models.CharField(max_length=1000, default='')
     expire_date = models.CharField(max_length=255, default='')
     description = models.CharField(max_length=1000, default='')

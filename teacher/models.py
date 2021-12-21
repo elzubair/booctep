@@ -2,6 +2,8 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.base import ModelState
 from datetime import datetime 
+from django.core.validators import MaxValueValidator
+
 
 class categories(models.Model):
     id = models.AutoField(primary_key=True)
@@ -58,8 +60,8 @@ class TestVideo(models.Model):
     name = models.CharField(max_length=200)
     url = models.CharField(max_length=200)
     vimeo_url = models.CharField(max_length=255,default='')
-    user_id = models.IntegerField(max_length=11)
-    review = models.IntegerField(max_length=11)
+    user_id = models.IntegerField(validators=[MaxValueValidator(90)])
+    review = models.IntegerField(validators=[MaxValueValidator(90)])
     
 class Sections(models.Model):
     id = models.AutoField(primary_key=True)
