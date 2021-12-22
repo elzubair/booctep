@@ -107,43 +107,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'booctop.wsgi.application'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-# DATABASES = {
-     # 'default': {
-         # 'ENGINE': 'django.db.backends.sqlite3',
-         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-     # }
- # }
-
-
-# DATABASES = {
-#    'default': {
-#       'ENGINE': 'django.db.backends.mysql',
-#       'NAME': 'booctop',
-#       'USER': 'root',
-#       'PASSWORD': 'root',
-#       'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-#       'PORT': '3306',
-#   }
-
 # Never change db config and commit.
 # If you want to use local db, change this config and don't commit to repo.
 DATABASES = {
    'default': {
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'booctop',
-        # 'USER': 'root', # 'root',
-        # 'PASSWORD': '',
-        # 'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
-        # 'PORT': '3306',
-
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'booctop',
         'USER': 'root', # 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '',
         'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
+
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'booctop',
+        # 'USER': 'root', # 'root',
+        # 'PASSWORD': 'root',
+        # 'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
+        # 'PORT': '3306',
     }
 }
 
@@ -240,7 +220,8 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # django-paypal settings
-PAYPAL_RECEIVER_EMAIL = 'support@booctep.com' #'sjcdas-facilitator@gmail.com' # 'sb-wtj43p8374977@business.example.com'
+# PAYPAL_RECEIVER_EMAIL = 'support@booctep.com' #'sjcdas-facilitator@gmail.com' # 'sb-wtj43p8374977@business.example.com'
+PAYPAL_RECEIVER_EMAIL = 'booctepdotcom2030@gmail.com'
 PAYPAL_TEST = True
 
 LOGIN_URL = 'login'
