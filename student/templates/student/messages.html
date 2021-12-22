@@ -359,8 +359,8 @@ width: 450px !important;
                     </div>
                 </div>
                 <div class="flex pt-4" id="msg_block" style="position: relative;height: 300px; bottom: 140px; margin-top: 120px!important;" data-perfect-scrollbar>
-                    <div class="container  " style="height: 100vh !important;">
-                        <div id="student_msg_div" class="">
+                    <div class="container  " style="height: 100vh !important; position: relative;">
+                        <div id="student_msg_div" class="" style="position: absolute; bottom: 0; width:170%;">
                             
                         </div>
                     </div>
@@ -620,7 +620,8 @@ width: 450px !important;
                         data: form_data,
                     }).then(response => {
                     })
-                    let html = `<li class=" message message-dark " style="text-decoration:none;list-style:none">
+                    let html = `<div class="columns"><div class="column is-half">
+                            <li class=" message message-dark " style="text-decoration:none;list-style:none">
                                 <div class="message__body card card-dark">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
@@ -634,7 +635,8 @@ width: 450px !important;
                                         </div>
                                     </div>
                                 </div>
-                            </li>`
+                            </li></div>
+                        </div>`
                     $("#student_msg_div").append(html)
                     scroll_down();
                 } else {
@@ -704,7 +706,8 @@ width: 450px !important;
                 let html = ''
                 messages.forEach(item => {
                     if (cur_id * 1 == item.fields.receiver * 1) {
-                        html += `<li class="message message-dark" style="text-decoration:none;list-style:none">
+                        html += `<div class="columns"><div class="column is-half">
+                            <li class="message message-dark" style="text-decoration:none;list-style:none">
                                 <div class="message__body card card-dark">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
@@ -718,9 +721,11 @@ width: 450px !important;
                                         </div>
                                     </div>
                                 </div>
-                            </li>`
+                            </li></div>
+                        </div>`
                     } else {
-                        html += `<li class="message message-dark student" style="text-decoration:none;list-style:none">
+                        html += `<div class="columns"><div class="column is-6 is-offset-6">
+                            <li class="message message-dark student" style="text-decoration:none;list-style:none">
                                 <div class="message__body card card-dark">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
@@ -733,7 +738,8 @@ width: 450px !important;
                                         <small class="text-50">` + item.fields.time + `</small>
                                     </div>
                                 </div>
-                            </li>`
+                            </li></div>
+                        </div>`
                     }
                 })
                 $("#student_msg_div").html(html)
@@ -748,7 +754,8 @@ width: 450px !important;
             sender_name = '{{ request.user.first_name }} {{ request.user.last_name }}';
             time = new Date().toISOString()
             time_format = time.slice(0,10) + " " + time.slice(11,19)
-            html = `<li class="message message-dark student">
+            html = `<div class="columns"><div class="column is-6 is-offset-6">
+                <li class="message message-dark student">
                         <div class="message__body card card-dark">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
@@ -759,7 +766,8 @@ width: 450px !important;
                                 <span class="toppp teachermsg">`+ text +`</span>
                             </div>
                         </div>
-                    </li>`
+                    </li></div>
+                </div>`
             $("#student_msg_div").append(html)
             socket.emit('student_to_teacher_message', {
                 sender_id: '{{ request.user.id }}',
