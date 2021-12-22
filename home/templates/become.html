@@ -142,9 +142,9 @@
                   {% else %}
                   <h2 class="booctep-h2 hero-become-4-h2">Teach what you learn and earn money now, see this step for how to be a teacher then sign as a teacher.</h2>
                   {% endif %}
-                  <a href="/{{lang}}/become_a_teacher" style="" class="button is-light is-light-dark hero-become-4-a">
+                  <button href="/{{lang}}/become_a_teacher" style="" class="button is-light is-light-dark hero-become-4-a">
                   <b>{% trans 'Become a teacher' %}</b>
-                  </a>
+                  </button>
               </div>
           </div>
               </div>
@@ -342,6 +342,14 @@
 
     $(function(){
         getsubcategory()
+        $("button.button.hero-become-4-a").click(function() {
+          var islogin = "{{ user.is_authenticated }}";
+          if (islogin === "False") {
+            $('.quickview-trigger').click()
+          } else {
+            location.href = "/{{lang}}/become_a_teacher"
+          }
+        });
     })
 
     function openBecomeModal(){

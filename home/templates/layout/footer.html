@@ -401,8 +401,6 @@
                     <div class="column ">
                         <ul class="footer-column footer-column-dark">
                             <div class="column">
-                                
-                                {% if user.group_id == 2 and request.user.id == None %}
                                 {% get_current_language as lang %}
                                 {% if lang == "ar" %}
                                 <a href="/{{ lang }}/become"
@@ -411,21 +409,6 @@
                                 <a href="/{{ lang }}/become"
                                    style="font-weight: 400;margin: 0 auto;" class="footcolor footcolor-dark">{% trans 'Become a teacher' %}</a>
                                 {% endif %}
-
-                               
-                                {% else %}
-                               
-                                {% get_current_language as lang %}
-                                {% if lang == "ar" %}
-                                <a href="{% url 'teacher courses' %}"
-                                   style="font-weight: 400;margin: 0 auto;" class="footcolor footcolor-dark"><b>{% trans 'Become a teacher' %}</b></a>
-                                {% else %}
-                                <a href="{% url 'teacher courses' %}"
-                                   style="font-weight: 400;margin: 0 auto;" class="footcolor footcolor-dark">{% trans 'Become a teacher' %}</a>
-                                {% endif %}
-                                {% endif %}
-
-
                             </div>
                         </ul>
                     </div>

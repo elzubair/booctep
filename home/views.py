@@ -901,6 +901,15 @@ def contact(request):
 
 
 def become(request):
+    lang = getLanguage(request)[0]
+    if lang == '':
+        lang = "en/"
+    # if user is teacher or stu&teach account
+    if request.user.is_authenticated:
+        user_type = request.session.get("user_type")
+        if user_type == 'teacher' or user_type == 'stuteach':
+            return redirect("/" + lang + "teacher/courses/")
+
     objC = categories.objects.all()
     favList = student_favourite_courses.objects.filter(student_id_id=request.user.id)
     favListShow = student_favourite_courses.objects.filter(student_id_id=request.user.id).order_by("-id")[:3]
@@ -931,7 +940,6 @@ def become_a_teacher(request):
     noti_list = notifications.objects.filter(user_id=request.user.id, is_read=0).order_by("-id")[:3]
     noti_cnt = notifications.objects.filter(user_id=request.user.id, is_read=0).count()
     x1, x2, x3, y1, y2, y3, y4, z1, z2, msg_list, msg_cnt, stu_msg_list, stu_msg_cnt, total_msg_cnt = findheader(request.user.id)
-    user_type = request.session.get("user_type")
     stu_courses = student_register_courses.objects.filter(student_id_id=request.user.id)
     return render(request, 'become-teacher.html', {'lang': getLanguage(request)[0], 'categories': categoryList, 'favList': favListShow, 'cartList': cartListShow,
                    'favCnt': len(favList), 'cartCnt': len(cartList), 'cartTotalSum': cartTotalSum, 'noti_cnt': noti_cnt,
