@@ -8,7 +8,7 @@ class discount(models.Model):
     promo_code = models.CharField(max_length=255, default='')
     discount_percent = models.IntegerField(default=0)
     expire = models.CharField(max_length=255, default='')
-    days = models.IntegerField(max_length=11, default=0)
+    days = models.IntegerField(validators=[MaxValueValidator(11)], default=0)
 
 
 

@@ -121,8 +121,8 @@ urlpatterns += i18n.i18n_patterns(
     url(r'^teacher/privacy/$', teacher_privacy, name='teacher privacy'),
     url(r'^teacher/payments/$', teacher_payments, name='teacher payments'),
     url(r'^teacher/notifications/$', teacher_notifications, name='teacher notifications'),
-    url(r'^course_engagement/$', course_engagement, name='teacher course engagement'),
-    url(r'^transactions/$', transaction, name='teacher transactions'),
+    url(r'^student/course_engagement/$', course_engagement, name='teacher course engagement'),
+    url(r'^teacher/transactions/$', transaction, name='teacher transactions'),
     url(r'^student/transactions/$', transaction, name='student transactions'),
     url(r'^addtofeedback/$', addtofeedback, name='addtofeedback'),
     url(r'^teacher/messages/$', teacher_messages, name='teacher messages'),
@@ -130,22 +130,22 @@ urlpatterns += i18n.i18n_patterns(
     url(r'^teacher/help/$', teacher_help, name='teacher help'),
     url(r'^dashboard-1/$', dashboard1, name='teacher dashboard-1'),
     url(r'^teacher/dashboard/$', dashboard, name='teacher dashboard'),
-    url(r'^guideline/$', guideline, name='teacher guideline'),
+    url(r'^student/guideline/$', guideline, name='teacher guideline'),
     url(r'^help2/$', dashboard, name='teacher help2'),
 
     url(r'^no-course-engagement/$', nocourseengagement, name='teacher no-course-engagement'),
     url(r'^no-course/$', nocourse, name='teacher no-course'),
 
     # STUDENT
-    url(r'^account/$', account, name='student account'),
-    url(r'^courses/$', courses, name='student courses'),
-    url(r'^security/$', security, name='student security'),
+    url(r'^student/account/$', account, name='student account'),
+    url(r'^student/courses/$', courses, name='student courses'),
+    url(r'^student/security/$', security, name='student security'),
     url(r'^profile/(?P<id>[0-9]+)/(?P<pname>[\w-]+)/$', viewProfile, name='view profile'),
     url(r'^payments/$', payments, name='student payments'),
     url(r'^student/privacy/$', privacy, name='student privacy'),
     url(r'^quizes/$', quizes, name='student quizes'),
     url(r'^quizes2/$', quizes2, name='student quizes2'),
-    url(r'^certificates/$', certificates, name='student certificates'),
+    url(r'^student/certificates/$', certificates, name='student certificates'),
 
     url(r'^viewcertificates/$', viewcertificates, name='view certificates'),
    

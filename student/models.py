@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from teacher.models import subcategories,Courses
 from home.models import User
+from django.core.validators import MaxValueValidator
 import os, shutil
 import datetime
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -15,7 +16,7 @@ class student_register_courses(models.Model):
 	course_id = models.ForeignKey(Courses, on_delete=models.CASCADE,null = True,related_name='id_course')
 	last_completed_section_id = models.IntegerField(default=0)
 	date_created = models.CharField(max_length=255)
-	withdraw = models.IntegerField(max_length=3, default=0, null=True)
+	withdraw = models.IntegerField(validators=[MaxValueValidator(3)], default=0, null=True)
 	approve_date = models.CharField(max_length=255)
 
 class student_cart_courses(models.Model):

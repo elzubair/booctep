@@ -105,7 +105,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'booctop.wsgi.application'
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -220,8 +220,12 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 365 * 5  # set session expire time as 5 year
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SESSION_EXPIRE_AT_BROWSER_CLOSE=False
 #whether the session cookie should be secure (https:// only)
-SESSION_COOKIE_SECURE=False
+
 SESSION_COOKIE_NAME='sessionid'  # use the sessionid in your views code
+SECURE_HSTS_SECONDS = 31536000
+
+
+
 
 AUTH_USER_MODEL = 'home.User'
 AUTHENTICATION_BACKENDS = [
