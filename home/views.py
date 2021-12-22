@@ -2990,8 +2990,6 @@ def single_category(request, category_name, id):
             l = "en/"
 
     category = categories.objects.get(pk=id)
-    categorie = category.name;
-    categorie_ar = category.namear;
     if user_id == None:
         if type == -1:
             course_list = Courses.objects.filter(scat_id=id).filter(approval_status=2).order_by('-created_at')
@@ -3050,7 +3048,7 @@ def single_category(request, category_name, id):
         rl = getLanguage(request)[0].split('/')
         return render(request, 'single_category.html',
                       {'lang': getLanguage(request)[0], 'course_list': course_list, 'host_url':host_url,
-                       "course_cnt": str(count), "course_name": categorie, "course_namear": categorie_ar, "user_id": user_id,
+                       "course_cnt": str(count), "user_id": user_id,
                        'category': category, 'favList': favListShow, 'alreadyinFav': alreadyinFavView,
                        'alreadyinCart': alreadyinCartView, 'stu_courses':stu_courses,
                        'cartList': cartListShow, 'favCnt': len(favList), 'cartCnt': len(cartList),
@@ -3061,7 +3059,7 @@ def single_category(request, category_name, id):
     else:
         return render(request, 'single_category.html',
                       {'lang': getLanguage(request)[0], 'course_list': course_list, 'host_url':host_url,
-                       "course_cnt": str(count), "course_name": categorie, "user_id": user_id,
+                       "course_cnt": str(count), "user_id": user_id,
                        'category': category, 'favList': favListShow, 'alreadyinFav': alreadyinFavView,
                        'alreadyinCart': alreadyinCartView, 'stu_courses':stu_courses,
                        'cartList': cartListShow, 'favCnt': len(favList), 'cartCnt': len(cartList),
