@@ -45,7 +45,7 @@ class User(AbstractBaseUser):
     last_name = models.CharField( max_length=200,null=True, blank=True)
     phone_number = models.CharField(max_length=200,null=True, blank=True)
     image = models.TextField(null=True, blank=True)
-    group = models.ForeignKey(Group, on_delete=models.DO_NOTHING,default=3)
+    group = models.ForeignKey(Group, on_delete=models.DO_NOTHING,default=2)
     USERNAME_FIELD ="email"
     receive_email = models.IntegerField(default=0)
 

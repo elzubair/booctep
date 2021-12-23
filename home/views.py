@@ -111,6 +111,10 @@ def home_view(request):
     if request.session.get(ip) == None:
         request.session[ip] = 'ar' + '-' + 'light'
 
+    # for users logged in with social
+    if request.user.is_authenticated and request.session.get("user_id") == None:
+        request.session['user_id'] = str(request.user.id)
+        request.session['user_type'] = request.user.group.name
     user_id = request.session.get("user_id")
     user_type = request.session.get("user_type")
 
