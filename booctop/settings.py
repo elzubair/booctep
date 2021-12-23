@@ -41,7 +41,7 @@ ALLOWED_HOSTS = ['*']
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtpout.secureserver.net'
 EMAIL_HOST_USER = 'support@booctep.com'
-EMAIL_HOST_PASSWORD = 'BooctepSupportCom'
+EMAIL_HOST_PASSWORD = 'Booctep1011'
 EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 EMAIL_USE_SSL=True
@@ -121,7 +121,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'booctop',
         'USER': 'root', # 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root',
         'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
