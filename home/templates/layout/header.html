@@ -586,7 +586,7 @@ body .container .content .studentnot-cont {
                         <i class="mdi mdi-apps"></i>
                     </a>
                 </div>
-                {% if request.session.user_type == 'student' %}
+                {% if user.group_id == 2 %}
                     {% if stu_courses|length %}
                     {% if user.is_authenticated %}
                         {% get_current_language as lang %}
@@ -632,7 +632,7 @@ body .container .content .studentnot-cont {
                     {% endif %}
                 {% endif %}
 
-                {% if request.session.user_type == 'teacher' %}
+                {% if user.group_id == 3 %}
                 {% if user.is_authenticated %}
                   {% get_current_language as lang %}
                   {% if lang == "ar" %}
@@ -655,7 +655,7 @@ body .container .content .studentnot-cont {
                 {% endif %}
                 {% endif %}
 
-                {% if request.session.user_type == 'stuteach' %}
+                {% if user.group_id == 4 %}
                     {% if stu_courses|length %}
                     {% if user.is_authenticated %}
                         {% get_current_language as lang %}
