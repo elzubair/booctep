@@ -571,8 +571,8 @@
 <script src="{% static 'socket/socket.io.js' %}"></script>
 <script>
 
-    // var socket = io.connect("https://booctep.com")
-    var socket = io.connect("http://localhost:3000")
+    var socket = io.connect("https://booctep.com")
+    // var socket = io.connect("http://localhost:3000")
     console.log("socket in base html:",socket);
     
     var user_id = '{{ request.user.id }}';

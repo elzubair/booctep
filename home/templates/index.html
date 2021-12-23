@@ -1183,7 +1183,8 @@
         //     this.closest(".banner").style.display = "none";
         // });
 
-        var socket = io.connect("http://localhost:3000")
+        // var socket = io.connect("http://localhost:3000")
+        var socket = io.connect("https://booctep.com")
         var myfunc = null
         $(document).ready(function() {
             socket.on('create_discount_complete', (data) =>{
