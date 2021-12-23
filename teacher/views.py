@@ -34,7 +34,7 @@ def getRatingFunc(rating_list):
 
 
 def teacher_account(request):
-    if request.session.get('user_id') == None:
+    if not request.user.is_authenticated:
         return redirect('/')
     objC = categories.objects.all()
     sub_categories = subcategories.objects.all()
@@ -90,7 +90,7 @@ def teacher_account(request):
 
 
 def teacher_security(request):
-    if request.session.get('user_id') == None:
+    if not request.user.is_authenticated:
         return redirect('/')
     user_id = request.session.get('user_id')
     password = request.session.get('password')
