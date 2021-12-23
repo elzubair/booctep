@@ -114,7 +114,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'booctop',
         'USER': 'root', # 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root',
         'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
 
@@ -226,7 +226,7 @@ PAYPAL_TEST = True
 
 LOGIN_URL = 'login'
 
-LOGIN_REDIRECT_URL = 'http://localhost:8000/en/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'logout'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '466816721163746'  # App ID
@@ -243,8 +243,11 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
 # SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '466107803379-bshhl2pa7dpfdu60cooighn975ttpl84.apps.googleusercontent.com'
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'R0lfpjHGtqXPNRC7O8YzaVql'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '695870330478-vsrte5l4rsf4d5amkm7v5vgd15kts8g3.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '695870330478-vsrte5l4rsf4d5amkm7v5vgd15kts8g3.apps.googleusercontent.com'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1041581575562-f5tiq7l6uaf8mk5suo0m2dhq9krd49r6.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 SOCIAL_AUTH_INSTAGRAM_KEY = '267910061521683'         #Client ID
 SOCIAL_AUTH_INSTAGRAM_SECRET = '95c0b482253e9eb434b35acfcdb106b5'  #Client SECRET
