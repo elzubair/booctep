@@ -96,7 +96,7 @@ def get_client_ip(request):
 
 def home_view(request):
     # Getting the host name and port and saving them into db for admin panel
-    host_url = request.get_host()
+    host_url = request.build_absolute_uri()[:-4]
     options = Option.objects.filter(oname="main_host")
     if options.count() == 0:
         option = Option(oname="main_host", oval=host_url)

@@ -111,19 +111,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # If you want to use local db, change this config and don't commit to repo.
 DATABASES = {
    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'booctop',
-        'USER': 'root', # 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
-
         # 'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'booctop',
         # 'USER': 'root', # 'root',
         # 'PASSWORD': 'root',
         # 'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
         # 'PORT': '3306',
+
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'booctop',
+        'USER': 'root', # 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
@@ -191,7 +191,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 STATIC_URL = '/static/'
-BASE_URL = 'http://127.0.0.1:8000'
+# BASE_URL = 'http://127.0.0.1:8000'
+BASE_URL = 'booctep.com'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "booctop/static"),
 )
