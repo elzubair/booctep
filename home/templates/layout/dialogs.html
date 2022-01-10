@@ -490,21 +490,27 @@
             e.preventDefault()
             let email = $("input[name='email']").val()
             if (email == "") {
-                alert("Please insert valid emaileeeeeeer.")
+                alert("Please insert valid email.")
                 return
             }
             $("#reset_password_form").submit()
-        })     
+        })
+
+        // $('#reset-password-modal').on('hidden.bs.modal', function () {
+        //     console.log("modal hide forcely")
+        // })     
     });
     
     $("#resetpasswordbutton").click(function(){
         if( ($("#resetnewpassword").val() != "") && ($("#resetconfirmpassword").val() != "")){
             if($("#resetnewpassword").val() != $("#resetconfirmpassword").val()){
-                //password = $("#resetnewpassword").val()
-                //if (password.match(/[a-z]+/)==true && (password.match(/[A-Z]+/)==true && (password.match(/[0-9]+/)==true && (password.match(/[$@#&!]+/)==true ) {
-                //    console.log("souccess");
-                //}
                 alert("Password does not matched");
+                return false
+            } else if ($("#resetnewpassword").val().trim().length < 8) {
+                alert("Password must be greater than 7 digit");
+                return false
+            } else if ($("#resetnewpassword").val().match(/^[a-zA-Z0-9.?!:;\-~`@#$%^&*()_+={}[\]\"\'|/>< ]+$/g) === null) {
+                alert("Password must be English");
                 return false
             }
         }

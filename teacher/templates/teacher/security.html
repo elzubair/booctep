@@ -157,13 +157,17 @@
                 showAlert(0, 'من فضلك أدخل كلمة المرور الحالية')
                 return
             }
-            if ($("#newpassword").val().trim().length < 6) {
-                showAlert(0, 'كلمة المرور أكثر لا بد أن تكون اكثر من 5 حروف')
+            if ($("#newpassword").val().trim().length < 8) {
+                showAlert(0, 'كلمة المرور أكثر لا بد أن تكون اكثر من 7 حروف')
                 return
             } else if ($("#retypenewpassword").val() == $("#newpassword").val() == "") {
                 showAlert(0, "كلمة المرور غير متطابقة")
                 return
+            } else if ($("#newpassword").val().match(/^[a-zA-Z0-9.?!:;\-~`@#$%^&*()_+={}[\]\"\'|/>< ]+$/g) === null) {
+                showAlert(0, "يجب أن تكون كلمة المرور باللغة الإنجليزية فقط.")
+                return
             }
+
             // Ajax start
             var action = "/changepassword/";
             $.ajax({

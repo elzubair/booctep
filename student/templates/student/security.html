@@ -233,11 +233,14 @@
                 showAlert(0, "يرجى المحاولة مرة أخرى وشكرا")
                 return
             }
-            if ($("#newpassword").val().trim().length < 6) {
-                showAlert(0, 'New password must be greater than 5 digit')
+            if ($("#newpassword").val().trim().length < 8) {
+                showAlert(0, 'New password must be greater than 7 digit')
                 return
             } else if ($("#retypenewpassword").val() == $("#newpassword").val() == "") {
                 showAlert(0, "password is not match. Please re-enter the correct password.")
+                return
+            } else if ($("#newpassword").val().match(/^[a-zA-Z0-9.?!:;\-~`@#$%^&*()_+={}[\]\"\'|/>< ]+$/g) === null) {
+                showAlert(0, "يجب أن تكون كلمة المرور باللغة الإنجليزية فقط.")
                 return
             }
 

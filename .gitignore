@@ -6,3 +6,4 @@ django
 env
 booctop/static/user_images
 booctop/static/certificates
+settings.py

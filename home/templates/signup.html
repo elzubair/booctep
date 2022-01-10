@@ -652,8 +652,8 @@
             $('#registernext').addClass(' is-loading');
             $('#registernext').removeClass(' is-loading');
             $("#div_error").html("");
-            if ($("#password").val().trim().length < 6) {
-                $("#div_error").html("{% trans 'Password must be greater than 5 digit' %}");
+            if ($("#password").val().trim().length < 8) {
+                $("#div_error").html("{% trans 'Password must be greater than 7 digit' %}");
                 return false
             }
             if ($("#password").val() == "") {
@@ -664,6 +664,9 @@
                 return false
             } else if ($("#confirm_password").val() == $("#password").val() == "") {
                 $("#div_error").html("{% trans 'password is not match. Please re-enter the correct password.' %}");
+                return false
+            } else if ($("#password").val().match(/^[a-zA-Z0-9.?!:;\-~`@#$%^&*()_+={}[\]\"\'|/>< ]+$/g) === null) {
+                $("#div_error").html("{% trans 'Password must be English' %}");
                 return false
             }
 
