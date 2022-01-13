@@ -766,10 +766,10 @@ a.blakandwhate-dark{
         };
 
         const deleteVideo = (obj) => {
-            let idx = $(obj).parent().attr('id').split('-')[1] * 1;
+            let idx = $(obj).closest('li').attr('id').split('-')[1] * 1;
             // let idx = $(obj).prev();
             
-            $(obj).parent().remove();
+            $(obj).closest('li').remove();
             console.log("videoList", videoList)
             console.log("idx", idx)
             let video = videoList[idx];

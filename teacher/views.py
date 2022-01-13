@@ -848,7 +848,6 @@ def getFreeCourseList():
 
 # store course in DB
 def store_course(request):
-    # course = Courses.objects.get(pk=course_id)
     id = request.POST.get('id')
     name = request.POST.get('name')
     description = request.POST.get('description')
