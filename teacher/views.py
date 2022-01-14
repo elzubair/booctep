@@ -1090,8 +1090,6 @@ def store_course_2(request):
                 name = section['name']
                 tag_id = section['tag_id']
 
-                ## store section in DB
-
                 # check if section already exist
                 length = len(section_list)
                 Sections.objects.filter(course_id=course_id).filter(nos__gt=length).delete()

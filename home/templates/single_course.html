@@ -898,18 +898,13 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script type="IN/Share" data-url="http://localhost:8000/en/single_course/49/"></script>
-    
 
-
-
-
-
-                                                    <style>
-                                                        .coolumn{
-                                                            display: flex;
-                                                            flex-direction: column !important;
-                                                        }
-                                                    </style>
+    <style>
+        .coolumn{
+            display: flex;
+            flex-direction: column !important;
+        }
+    </style>
 
     <section class="hero is-small is-bold hero-single-course hero-single-course-dark" style="">
         <input type="hidden" id="pageId" value="{{ id }}"/>
@@ -1035,12 +1030,14 @@
                                         <div class="column is-8">
                                             <div class="schedule schedule-dark " style="margin-top: -3px; ">
                                                 <div class="schedule-header">
+                                                    {% if vimeo_video|length == 0 %}
                                                     <video autoplay poster="{% static 'assets/img/setting.png' %}" id="videoplayer" playsinline controls style="width: 100%;">
-                                                        <source src="../../../../static{{ promo_video }}"
-                                                                type="video/webm"/>
-                                                        <track kind="captions" label="English captions"
-                                                               src="/path/to/captions.vtt" srclang="en" default/>
+                                                        <source src="../../../../static{{ promo_video }}" type="video/webm"/>
+                                                        <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default/>
                                                     </video>
+                                                    {% else %}
+                                                    <iframe src="https://player.vimeo.com/video/{{vimeo_video.0}}?h={{vimeo_video.1}}&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id={{vimeo_video.2}}" width="830" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="vimeo test"></iframe>
+                                                    {% endif %}
                                                 </div>
 
                                                 <div class="schedule-header w-100">
@@ -2429,7 +2426,7 @@
     <script>
         var total = "{{course.price}}";
         var discount = "{{course.discount}}";
-        var after_discount = "{{course.discount_price}}";
+        var after_discount = "{{course.discount_price}}"; 
 
         var myTimer = setInterval(Dataloading, 2000);
 
@@ -2612,20 +2609,18 @@
                 $("#modal-users").html(response.user_count)
                 $("#modal-rating").html(response.rating)
                 $("#modal-img").attr('src', '/static' + response.user_img)
-                html = ``;
                 key = 0
                 eleKey = 0
                 sections.forEach(item => {
-                    html += `<div class="accordion__item">
-                                <a href="#" class="accordion__toggle accordion__toggle-dark collapsed" style="display:flex; justify-content: space-between;" data-toggle="collapse"
-                                   data-target="#course-toc-${key}" data-parent="#parent">
-                                    <span class="flex">${item.name}</span>
-                                    <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
-                                </a>`
                     item.video_list.forEach(ele => {
                         if (eleKey == 0 && ele.lock == 0) {
-                            $("#modal-video-src").attr('src', "../../../../static" + ele.url)
-                            $("#modal-video-src").parent()[0].load()
+                            if (ele.vimeo_url === "") {
+                                $("#modal-video-src").attr('src', "../../../../static" + ele.url)
+                                $("#modal-video-src").parent()[0].load()
+                            } else {
+                                $("#videoplayer").css('display', 'none')
+                                $("div.video-promo").append(ele.vimeo_url)
+                            }
                         }
                         videoname = ele.name.slice(0, -4)
                         icon_name = `fa fa-lock`
@@ -2635,33 +2630,20 @@
                             icon_name = `fa fa-play`
                             eleKey++
                         }
-                        html += `<div class="accordion__menu collapse" id="course-toc-${key}">
-                                        <div class="accordion__menu-link" style="cursor: pointer;">
-                                            <i class="${icon_name}" style="margin-right: 5px;color: rgb(194, 194, 194);"></i> &nbsp
-                                            <div data-url="${ele.url}"`
-                        if (ele.lock == 0)
-                            html += `onclick="playmyvideo(this)"`
-                        html += `>${videoname}</div>
-                                        </div>
-                                    </div>`
                     })
-                    html += `</div>`
                     key++
                 })
-                $("#modal-parent").html(html)
             })
         }
 
-        function playmyvideo(obj) {
-            url = $(obj).data('url')
-            $("#modal-video-src").attr('src', "../../../../static" + url)
-            $(".app-video video")[0].load();
-            $("#videos-modal .fa-play").attr('class', 'fa fa-video')
-            $(obj).prev().attr('class', 'fa fa-play')
-        }
-
         function closeModal() {
-            $(".video-promo #videoplayer")[0].pause()
+            var iframe = document.getElementsByTagName("iframe")[1];
+            if (iframe) {
+                iframe.remove();
+                $("#videoplayer").css('display', 'block')
+            } else {
+                $(".video-promo #videoplayer")[0].pause()    
+            }
         }
 
         function doBuyCourse() {
@@ -2840,6 +2822,8 @@
                 $(".cancelpromobutton").css("display", "none");
                 $(".cancelpromobutton").prop("disabled", true);
             });
+
+            // $("div.schedule-header")[0].innerHTML = '{{ vimeo_video }}'
         });
 
         $(document).ready(function () {
@@ -2868,18 +2852,6 @@
                 },],
             }) {% endcomment %}
         })
-
-        function playmyvideo(obj) {
-            url = $(obj).data('url')
-            $("#modal-video-src").attr('src', "../../../../static" + url)
-            $(".app-video video")[0].load();
-            $("#videos-modal .fa-play").attr('class', 'fa fa-video')
-            $(obj).prev().attr('class', 'fa fa-play')
-        }
-
-        // document.querySelector(".banner__close").addEventListener("click", function () {
-        //     this.closest(".banner").style.display = "none";
-        // });
 
     </script>
 

@@ -800,48 +800,41 @@
                 $("#modal-users").html(response.user_count)
                 $("#modal-rating").html(response.rating)
                 $("#modal-img").attr('src', '/static' + response.user_img)
-                html = ``;
                 key = 0
                 eleKey = 0
                 sections.forEach(item =>{
-                    html += `<div class="accordion__item">
-                                <a href="#" class="accordion__toggle collapsed" style="display:flex; justify-content: space-between;" data-toggle="collapse"
-                                   data-target="#course-toc-${key}" data-parent="#parent">
-                                    <span class="flex">${item.name}</span>
-                                    <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
-                                </a>`
-                        item.video_list.forEach(ele =>{
-                            if (eleKey == 0 && ele.lock == 0) {
-                                $("#modal-video-src").attr('src', "http://" + host_url + "/static" + ele.url)
-                                $("#modal-video-src").parent()[0].load()
+                    item.video_list.forEach(ele =>{
+                        if (eleKey == 0 && ele.lock == 0) {
+                            if (ele.vimeo_url === "") {    
+                                $("#modal-video-src").attr('src', host_url + "/static" + ele.url)
+                                $("#modal-video-src").parent()[0].load()    
+                            } else {
+                                $("#videoplayer").css('display', 'none')
+                                $("div.video-promo").append(ele.vimeo_url)
                             }
-                            videoname = ele.name.slice(0, -4)
-                            icon_name = `fa fa-lock`
-                            if (ele.lock == 0)
-                                icon_name = `fa fa-video`
-                            if (ele.lock == 0 && eleKey == 0) {
-                                icon_name = `fa fa-play`
-                                eleKey ++
-                            }
-                            html += `<div class="accordion__menu collapse" id="course-toc-${key}">
-                                        <div class="accordion__menu-link" style="cursor: pointer;">
-                                            <i class="${icon_name}" style="margin-right: 5px;color: rgb(194, 194, 194);"></i> &nbsp
-                                            <div data-url="${ele.url}"`
-                            if (ele.lock == 0)
-                                 html +=  `onclick="playmyvideo(this)"`
-                             html += `>${videoname}</div>
-                                        </div>
-                                    </div>`
-                        })
-                    html += `</div>`
+                        }
+                        videoname = ele.name.slice(0, -4)
+                        icon_name = `fa fa-lock`
+                        if (ele.lock == 0)
+                            icon_name = `fa fa-video`
+                        if (ele.lock == 0 && eleKey == 0) {
+                            icon_name = `fa fa-play`
+                            eleKey ++
+                        }
+                    })
                     key ++
                 })
-                $("#modal-parent").html(html)
             })
         }
 
         function closeModal() {
-            $(".video-promo #videoplayer")[0].pause()
+            var iframe = document.getElementsByTagName("iframe")[0];
+            if (iframe) {
+                iframe.remove();
+                $("#videoplayer").css('display', 'block')
+            } else {
+                $(".video-promo #videoplayer")[0].pause()    
+            }
         }
 
         $(document).ready(function () {
@@ -934,8 +927,8 @@
             $(obj).prev().attr('class', 'fa fa-play')
         }
 
-        // var socket = io.connect("http://localhost:3000")
-        var socket = io.connect("https://booctep.com")
+        var socket = io.connect("http://localhost:3000")
+        // var socket = io.connect("https://booctep.com")
         var myfunc = null
         $(document).ready(function() {
             socket.on('create_discount_complete', (data) =>{

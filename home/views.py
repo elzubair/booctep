@@ -1308,6 +1308,7 @@ def single_course(request, teacher_id, course_url):
     if request.user.id == cur_course.user_id:
         is_me = 1
     promo_video = ''
+    vimeo_video = []
     videocounter = 0
     _obj = []
     if Sections.objects.filter(course_id=id).exists():
@@ -1330,7 +1331,14 @@ def single_course(request, teacher_id, course_url):
                 i.tname = re.sub(r'[^\w]', '', i.name)
             if VideoUploads.objects.filter(section_id=i.id, promo=1).exists():
                 promo_video = VideoUploads.objects.filter(section_id=i.id, promo=1)[0].url
-
+                vimeo_url = VideoUploads.objects.filter(section_id=i.id, promo=1)[0].vimeo_url
+                if len(vimeo_url):
+                    vimeo_item1 = re.search('\/[a-zA-Z0-9]+\?', vimeo_url).group()[1:-1]
+                    vimeo_video.append(vimeo_item1)
+                    vimeo_item2 = re.search('h=[a-zA-Z0-9]+&', vimeo_url).group()[2:-1]
+                    vimeo_video.append(vimeo_item2)
+                    vimeo_item3 = re.search('app_id=[a-zA-Z0-9]+\"', vimeo_url).group()[7:-1]
+                    vimeo_video.append(vimeo_item3)
     fav_exist = 0
     if student_favourite_courses.objects.filter(student_id_id=user_id, course_id_id=course.id).exists():
         fav_exist = 1
@@ -1344,7 +1352,7 @@ def single_course(request, teacher_id, course_url):
                    'course': course, 'similar_courses': similar_courses, 'user_type': user_type, "user_id": user_id,
                    "comment_list": obj_comment, 'id': id, 'user_info': user_info, 'free_course': free_course,
                    'teacher_id': teacher_id, 'stu_courses':stu_courses,
-                   'paid_course': paid_course, 'includeList': _obj, 'favList': favListShow, 'promo_video': promo_video,
+                   'paid_course': paid_course, 'includeList': _obj, 'favList': favListShow, 'promo_video': promo_video, 'vimeo_video': vimeo_video,
                    'alreadyinFav': alreadyinFavView, 'cartList': cartListShow, 'alreadyinCart': alreadyinCartView,
                    'favCnt': len(favList), 'cartCnt': len(cartList), 'cartTotalSum': cartTotalSum, 'noti_cnt': noti_cnt,
                    'noti_list': noti_list, 'is_me': is_me, 'fav_exist': fav_exist, 'cart_exist': cart_exist,
@@ -1483,7 +1491,6 @@ def delete_Cart_courses_all(request):
 
 @csrf_exempt
 def student_Favourite_courses(request):
-    print("test:::", type(request.POST.get('student')))
     course_id = request.POST.get('course')
     if request.POST.get('student') is None or request.POST.get('student') == '':
         return HttpResponse("require_login")
@@ -3170,7 +3177,6 @@ def getCourseDetailForPromo(request):
         dict1['name'] = ele.name
         sections.append(dict1)
         dict1 = {}
-    print("test:::", sections)
     ret = {
         'course': serializers.serialize('json', [course]),
         'user_count': len(myUserList),
