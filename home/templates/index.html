@@ -901,15 +901,10 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="video-promo"><!--heree-->
-                        <video autoplay poster="/static/assets/img/setting.png" class="video-promo" style="max-height:450px !important"
-                               id="videoplayer"
-                               playsinline controls> <!-- Point play promo video -->
+                    <div class="video-promo">
+                        <video autoplay poster="/static/assets/img/setting.png" class="video-promo" style="max-height:450px !important" id="videoplayer" playsinline controls>
                             <source id="modal-video-src" src="{{ course.video.promo }}" type="video/mp4"/>
-
-                            <!-- Captions are optional -->
-                            <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en"
-                                   default/>
+                            <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default/>
                         </video>
                     </div>
                 </div>
@@ -973,44 +968,38 @@
                 key = 0
                 eleKey = 0
                 sections.forEach(item =>{
-                    html += `<div class="accordion__item">
-                                <a href="#" class="accordion__toggle collapsed" style="display:flex; justify-content: space-between;" data-toggle="collapse"
-                                   data-target="#course-toc-${key}" data-parent="#parent">
-                                    <span class="flex">${item.name}</span>
-                                    <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
-                                </a>`
-                        item.video_list.forEach(ele =>{
-                            if (eleKey == 0 && ele.lock == 0) {
-                                $("#modal-video-src").attr('src', "http://" + host_url + "/static" + ele.url)
-                                $("#modal-video-src").parent()[0].load()
+                    item.video_list.forEach(ele =>{
+                        if (eleKey == 0 && ele.lock == 0) {
+                            if (ele.vimeo_url === "") {    
+                                $("#modal-video-src").attr('src', host_url + "/static" + ele.url)
+                                $("#modal-video-src").parent()[0].load()    
+                            } else {
+                                $("#videoplayer").css('display', 'none')
+                                $("div.video-promo").append(ele.vimeo_url)
                             }
-                            videoname = ele.name.slice(0, -4)
-                            icon_name = `fa fa-lock`
-                            if (ele.lock == 0)
-                                icon_name = `fa fa-video`
-                            if (ele.lock == 0 && eleKey == 0) {
-                                icon_name = `fa fa-play`
-                                eleKey ++
-                            }
-                            html += `<div class="accordion__menu collapse" id="course-toc-${key}">
-                                        <div class="accordion__menu-link" style="cursor: pointer;">
-                                            <i class="${icon_name}" style="margin-right: 5px;color: rgb(194, 194, 194);"></i> &nbsp
-                                            <div data-url="${ele.url}"`
-                            if (ele.lock == 0)
-                                 html +=  `onclick="playmyvideo(this)"`
-                             html += `>${videoname}</div>
-                                        </div>
-                                    </div>`
-                        })
-                    html += `</div>`
+                        }
+                        videoname = ele.name.slice(0, -4)
+                        icon_name = `fa fa-lock`
+                        if (ele.lock == 0)
+                            icon_name = `fa fa-video`
+                        if (ele.lock == 0 && eleKey == 0) {
+                            icon_name = `fa fa-play`
+                            eleKey ++
+                        }
+                    })
                     key ++
                 })
-                $("#modal-parent").html(html)
             })
         }
 
         function closeModal() {
-            $(".video-promo #videoplayer")[0].pause()
+            var iframe = document.getElementsByTagName("iframe")[0];
+            if (iframe) {
+                iframe.remove();
+                $("#videoplayer").css('display', 'block')
+            } else {
+                $(".video-promo #videoplayer")[0].pause()    
+            }
         }
 
         function setType(type) {

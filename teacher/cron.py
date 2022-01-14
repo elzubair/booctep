@@ -2,6 +2,7 @@ from teacher.models import VideoUploads
 from django.conf import settings
 import vimeo
 import os
+import re
     
 def my_jobs():
     print('Uploading video to Vimeo')
@@ -34,7 +35,14 @@ def my_jobs():
             # Get the info of uploaded video
             response = client.get(uri)
             info = response.json()
-            vimeo_url = info['link']
+            vimeo_html = info['embed']['html']
+
+            # Changing width and height of iframe
+            wp = re.compile('width=\"[0-9]+\"')
+            ws = wp.sub('width="830"', vimeo_html)
+
+            hp = re.compile('height=\"[0-9]+\"')
+            vimeo_url = hp.sub('height="450"', ws)
 
             # Save the vimeo url
             v.vimeo_url = vimeo_url

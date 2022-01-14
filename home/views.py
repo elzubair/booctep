@@ -63,6 +63,7 @@ import random, string
 from django.utils.translation import LANGUAGE_SESSION_KEY
 from django.utils import translation
 import re
+from urllib.parse import urlparse
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'booctop.settings'
 application = get_wsgi_application()
@@ -96,7 +97,10 @@ def get_client_ip(request):
 
 def home_view(request):
     # Getting the host name and port and saving them into db for admin panel
-    host_url = request.build_absolute_uri()[:-4]
+    parsed_uri = urlparse(request.build_absolute_uri())
+    host_url = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+    host_url = host_url[:-1]
+
     options = Option.objects.filter(oname="main_host")
     if options.count() == 0:
         option = Option(oname="main_host", oval=host_url)
@@ -1667,9 +1671,7 @@ def register_user(request):
             #     request.session['user_type'] = "teacher"
 
             if type == "teacher":
-                print("subcategori ID: ", subcategory_id)
                 objSubCat = subcategories.objects.get(id=subcategory_id)
-                print("heeerrrr", objSubCat)
                 objUS = user_categories()
                 objUS.user = objUser
                 objUS.category = objSubCat
@@ -1856,7 +1858,13 @@ def sendConfirmationMail(objUA, domain, user_group_id, request):
 
 
 def activated(request):
-    return render(request, 'activated.html', {'lang': getLanguage(request)[0]})
+    x1, x2, x3, y1, y2, y3, y4, z1, z2, msg_list, msg_cnt, stu_msg_list, stu_msg_cnt, total_msg_cnt = findheader(request.user.id)
+    user_type = request.session.get("user_type")
+    stu_courses = student_register_courses.objects.filter(student_id_id=request.user.id)
+    return render(request, 'activated.html',
+                  {'lang': getLanguage(request)[0], 'favList': x1, 'favCnt': x2, 'alreadyinFav': x3, 'cartList': y1,
+                   'cartCnt': y2, 'alreadyinCart': y3, 'cartTotalSum': y4, 'noti_list': z1, 'noti_cnt': z2,
+                   'msg_list': msg_list, 'msg_cnt': msg_cnt, "stu_courses": stu_courses, 'stu_msg_list': stu_msg_list, 'stu_msg_cnt': stu_msg_cnt, 'total_msg_cnt': total_msg_cnt})
 
 def activation(request):
     cod = request.GET.get('code')
@@ -2728,8 +2736,9 @@ def searching(request):
     favListShow, favCnt, alreadyinFavView, cartListShow, cartCnt, alreadyinCartView, cartTotalSum, noti_list, noti_cnt, msg_list, msg_cnt, stu_msg_list, stu_msg_cnt, total_msg_cnt = findheader(
         request.user.id)
 
-    optionObj = Option.objects.filter(oname="main_host")[0]
-    host_url = optionObj.oval
+    parsed_uri = urlparse(request.build_absolute_uri())
+    host_url = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+    host_url = host_url[:-1]
 
     type = request.POST.get('type')
     page = request.POST.get('page')
@@ -2945,7 +2954,10 @@ def searching(request):
 
 
 def single_category(request, category_name, id):
-    host_url = request.get_host()
+    parsed_uri = urlparse(request.build_absolute_uri())
+    host_url = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+    host_url = host_url[:-1]
+    
     user_id = request.session.get("user_id")
     user_type = request.session.get("user_type")
     stu_courses = student_register_courses.objects.filter(student_id_id=request.user.id)
@@ -3135,20 +3147,10 @@ def getCourseDetailForPromo(request):
         rating = sum / cnt
     ssss = Sections.objects.filter(course_id=course.id, type='video')
     promoVideo = []
-    # for s in ssss:
-    #     if VideoUploads.objects.filter(section_id=s).filter(~Q(promo=0)).exists():
-    #         videos = VideoUploads.objects.filter(section_id=s).filter(~Q(promo=0))
-    #         for video in videos:
-    #             promoVideo.append(video)
-    # if len(promoVideo) > 0:
-    #     curVideo = promoVideo[0].url
-    # else:
-    #     curVideo = ''
-    # course.curVideo = curVideo
-    # course.video = promoVideo
     user = User.objects.get(pk=course.user_id)
     course.user = user
     myUserList = student_register_courses.objects.filter(course_id_id=course.id)
+
     dict = {}
     dict1 = {}
     sections = []
@@ -3158,6 +3160,7 @@ def getCourseDetailForPromo(request):
         for video in videos:
             dict['name'] = video.name
             dict['url'] = video.url
+            dict['vimeo_url'] = video.vimeo_url
             dict['duration'] = video.duration
             dict['lock'] = video.lock
             video_list.append(dict)
