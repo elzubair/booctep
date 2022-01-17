@@ -25,7 +25,7 @@ from student.views import *
 
 from teacher.views import getCourseDetailsById, teacher_account, teacher_privacy, teacher_notifications, teacher_courses, teacher_security, teacher_payments, teacher_messages, teacher_faqs, payout, teacher_help, course_engagement, addtofeedback, student_performance, dashboard, dashboard1, guideline, help2,  newcourse, nocourseengagement, nocourse, transaction, add_course, test_video
 
-from video.views import playground, video_quiz, video_quiz2, video_quiz3, getQuiz
+from video.views import playground, video_quiz, final_quiz, getQuiz, quiz_question
 
 from django.contrib.auth import views as auth_views
 
@@ -168,6 +168,9 @@ urlpatterns += i18n.i18n_patterns(
     url(r'^getQuiz/$', getQuiz, name='get Quiz'),
 
     url(r'^video/(?P<course_name>\w+)/(?P<id>[0-9]+)/$', playground, name='video playground'),
+    url(r'^question/(?P<course_name>\w+)/(?P<quiz_id>[0-9]+)/$', video_quiz, name='student quiz'),
+    url(r'^quiz/(?P<course_name>\w+)/(?P<quiz_id>[0-9]+)/$', quiz_question, name='quiz question'),
+    url(r'^quiz/final/$', final_quiz, name='final quiz'),
     )
 
 # urlpatterns =[url('', viewcertificates, name='viewcertificates'),url(r'^pdf', pdf, name='pdf'),]

@@ -848,7 +848,6 @@ def getFreeCourseList():
 
 # store course in DB
 def store_course(request):
-    # course = Courses.objects.get(pk=course_id)
     id = request.POST.get('id')
     name = request.POST.get('name')
     description = request.POST.get('description')
@@ -1090,8 +1089,6 @@ def store_course_2(request):
                 print("section:::", section['id'])
                 name = section['name']
                 tag_id = section['tag_id']
-
-                ## store section in DB
 
                 # check if section already exist
                 length = len(section_list)
