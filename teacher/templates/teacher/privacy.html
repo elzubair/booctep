@@ -4,13 +4,23 @@
 
 
 
-
 {% block headercontent %}
+{% get_current_language as lang %}
+{% if lang == "ar" %}
+    {% with title="الخصوصية" %}
+        {% include "./layout/header.html" %}
+    {% endwith %}
+{% else %}
 {% with title="Privacy" %}
     {% include "./layout/header.html" %}
-{% endwith %}  
+{% endwith %}
+{% endif %}    
 {% endblock %}
 
+
+{% block title %}
+الخصوصية
+{% endblock %}
 
     <style>
         html {

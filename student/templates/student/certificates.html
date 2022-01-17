@@ -6,14 +6,18 @@
 {% block headercontent %}
 {% get_current_language as lang %}
 {% if lang == "ar" %}
-    {% with title="الخصوصية" %}
+    {% with title="الشهادات" %}
         {% include "./layout/header.html" %}
     {% endwith %}
 {% else %}
-    {% with title="Privacy" %}
+    {% with title="Certificates" %}
         {% include "./layout/header.html" %}
     {% endwith %}
 {% endif %}
+{% endblock %}
+
+{% block title %}
+الشهادات
 {% endblock %}
 
 {% block content %}

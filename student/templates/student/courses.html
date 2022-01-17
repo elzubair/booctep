@@ -3,18 +3,24 @@
 {% load i18n %}
 
 
+{% block title %}
+دوراتي
+{% endblock %}
 
 {% block headercontent %}
 {% get_current_language as lang %}
 {% if lang == "ar" %}
-    {% with title="الخصوصية" %}
+    {% with title="" %}
         {% include "./layout/header.html" %}
     {% endwith %}
 {% else %}
-    {% with title="Privacy" %}
+    {% with title="My courses" %}
         {% include "./layout/header.html" %}
     {% endwith %}
 {% endif %}
+
+
+
     <style>
         /* Ratings widget */
         .rate {
@@ -174,6 +180,8 @@
 
 </style>
 
+
+   
 
 {% endblock %}
 

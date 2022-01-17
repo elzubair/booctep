@@ -6,13 +6,16 @@
 {% block headercontent %}
 {% get_current_language as lang %}
 {% if lang == "ar" %}
-    {% with title="الرسائل" %}
+    {% with title="التنبيهات" %}
         {% include "./layout/header.html" %}
     {% endwith %}
 {% else %}
-{% with title="Messages" %}
+{% with title="Notifications" %}
     {% include "./layout/header.html" %}
 {% endwith %}
+{% block title %}
+التنبيهات
+{% endblock %}
 {% endif %}   
 
     <link rel="stylesheet" href="{% static 'student/assets/css/sweetalert.css' %}">
