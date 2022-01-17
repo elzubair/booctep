@@ -347,12 +347,13 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                                         <div class="nav-item navbar-list__item">
                                             {% get_current_language as lang %}
                                             {% if lang == "ar" %}
-                                            <a href="/ar/courses" class="nav-link h-auto mediabout mediabout-dark"><i
-                                                    class="material-icons icon--left mediabout mediabout-dark">keyboard_backspace</i> الرجوع إلى لوحة التحكم</a>
+                                            <a href="{% url 'student courses' %}" class="nav-link h-auto mediabout mediabout-dark">
+                                                <i class="material-icons icon--left mediabout mediabout-dark">keyboard_backspace</i> الرجوع إلى لوحة التحكم 
+                                            </a>
                                             {% else %}
-                                            <a href="/en/courses" class="nav-link h-auto mediabout mediabout-dark"><i
-                                                    class="material-icons icon--left mediabout mediabout-dark">keyboard_backspace</i> Back to
-                                                Dashboard</a>
+                                            <a href="{% url 'student courses' %}" class="nav-link h-auto mediabout mediabout-dark">
+                                                <i class="material-icons icon--left mediabout mediabout-dark">keyboard_backspace</i> Back to Dashboard
+                                            </a>
                                             {% endif %}  
                                         </div>
                                         <div class="nav-item navbar-list__item">
@@ -403,18 +404,17 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                 {% if end_flag != 1 %}
                 <div class="Quiz">
                     <div class="quiz-1">
-                        <input type="hidden" value="{{ questionNo }}" id="curQuizNo">
                         <h2 class="quiz-h2 mediabout mediabout-dark" style="text-align: center;" id="QuizTitle">{{ title }}</h2>
-                        {% for ele in eleList %}
+                        {% for content in contents %}
                             {% get_current_language as lang %}
                             {% if lang == "ar" %}
                             <div class="d-flex" style="align-items: center;">
-                            <a href="#" class="quiz-a choice_one answeeer answeeer-dark" style="width:95%;text-align: right !important;">{{ ele }}</a>
+                            <a href="#" class="quiz-a choice_one answeeer answeeer-dark" style="width:95%;text-align: right !important;">{{ content }}</a>
                             <input class="quizAns" style="margin-left:1%; display:none;" type="checkbox" >
                             </div>
                             {% else %}
                             <div class="d-flex" style="align-items: center;">
-                            <a href="#" class="quiz-a choice_one answeeer answeeer-dark" style="width:95%;">{{ ele }}</a>
+                            <a href="#" class="quiz-a choice_one answeeer answeeer-dark" style="width:95%;">{{ content }}</a>
                             <input class="quizAns" style="margin-left:1%; display:none;" type="checkbox">
                             </div>
                             {% endif %}
@@ -434,27 +434,21 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                                 style="width: 40%;margin:0 auto;margin-top: 30px;">Skip
                         </button>
                         {% endif %}
-                        <!-- <button class="btn flex showhint" style="color: rgb(87, 185, 185);" data-toggle="toastr" data-toastr-type="info"
-                                data-toastr-title="null" style="cursor: not-allowed;"
-                                data-toastr-show-method="slideDown" data-toastr-hide-method="slideUp"
-                                data-toastr-close-method="slideUp">Hint
-                            <i class="fa fa-lightbulb" style="margin-left: 5px;"></i>
-                        </button> -->
-                            {% get_current_language as lang %}
-                            {% if lang == "ar" %}
-                            
-                            <button class="btn successbtn successbtn-dark flex" id="checkbtn"
-                                    style=" width: 40%;margin:0 auto;margin-top: 30px;"
-                                    onclick="checkAnswer()">
-                                {% if end_flag == 0 %}السؤال التالي{% elif end_flag == 2 %}إكمال الاختبار{% endif %}
-                            </button>
-                            {% else %}
-                            <button class="btn successbtn successbtn-dark flex" id="checkbtn"
-                                    style=" width: 40%;margin:0 auto;margin-top: 30px;"
-                                    onclick="checkAnswer()">
-                                {% if end_flag == 0 %}check answer{% elif end_flag == 2 %}finish{% endif %}
-                            </button>
-                            {% endif %}
+
+                        {% get_current_language as lang %}
+                        {% if lang == "ar" %}
+                        <button class="btn successbtn successbtn-dark flex" id="checkbtn"
+                                style=" width: 40%;margin:0 auto;margin-top: 30px; color: white;"
+                                onclick="checkAnswer()">
+                            تحقق من الجواب
+                        </button>
+                        {% else %}
+                        <button class="btn successbtn successbtn-dark flex" id="checkbtn"
+                                style=" width: 40%;margin:0 auto;margin-top: 30px; color: white;"
+                                onclick="checkAnswer()">
+                            check answer
+                        </button>
+                        {% endif %}
                     </div>
 
                 </div>
@@ -499,7 +493,7 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                             <ul class="list-group list-group-flush mb-3">
                                 <div class="chart chart-2" style="height: 232px; width: 180px;">
                                     <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                                        <h2 class="m-0 mediabout-dark mediabout">{{ question_no }} / {{ question_count }}</h2>
+                                        <h2 class="m-0 mediabout-dark mediabout">1 / {{ question_count }}</h2>
                                         <strong>{{ left }} متبقي من الاسئلة</strong>
                                     </div>
                                     <canvas class="chart-canvas position-relative z-1" id="attendanceDoughnutChart"
@@ -513,11 +507,23 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                                     </div>
                                     <div id="attendanceDoughnutChartLegend" class="chart-legend chart-legend--vertical mt-24pt is-fullwidth" style="float: right
                                     text-align:right;">
-                                        <sapn class="chart-legend-item coreect coreect-dark">
+                                        <sapn class="chart-legend-item">
+                                            <i class="fa fa-circle" style="color: rgba(85, 103, 255, 1); margin-right: 5px; font-size:8px">
+                                            </i>
+                                            <b style="font-size:16px">صيح</b>
+                                            <span id="correct_cnt">0</span>
                                         </sapn>
-                                        <sapn class="chart-legend-item skiip skiip-dark">
+                                        <sapn class="chart-legend-item">
+                                            <i class="fa fa-circle" style="color: rgba(242, 240, 124, 1); margin-right: 5px; font-size:8px">
+                                            </i>
+                                            <b style="font-size:16px">يتخطى</b>
+                                            <span id="skip_cnt">0</span>
                                         </sapn>
-                                        <sapn class="chart-legend-item wrrong wrrong-dark">
+                                        <sapn class="chart-legend-item">
+                                            <i class="fa fa-circle" style="color: rgba(247, 94, 104, 1); margin-right: 5px; font-size:8px">
+                                            </i>
+                                            <b style="font-size:16px">خاطئ</b>
+                                            <span id="wrong_cnt">0</span>
                                         </sapn>
                                     </div>
                                 </div>
@@ -533,7 +539,7 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                             <ul class="list-group list-group-flush mb-3">
                                 <div class="chart chart-2" style="height: 232px; width: 180px;">
                                     <div class="text-center fullbleed d-flex align-items-center justify-content-center flex-column z-0">
-                                        <h2 class="m-0">{{ question_no }} / {{ question_count }}</h2>
+                                        <h2 class="m-0">1 / {{ question_count }}</h2>
                                         <strong>{{ left }} To go</strong>
                                     </div>
                                     <canvas class="chart-canvas position-relative z-1" id="attendanceDoughnutChart"
@@ -547,10 +553,22 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                                     </div>
                                     <div id="attendanceDoughnutChartLegend" class="chart-legend chart-legend--vertical mt-24pt">
                                         <sapn class="chart-legend-item">
+                                            <i class="fa fa-circle" style="color: rgba(85, 103, 255, 1); margin-right: 5px; font-size:8px">
+                                            </i>
+                                            <b style="font-size:16px">correct:</b>
+                                            <span id="correct_cnt">0</span>
                                         </sapn>
                                         <sapn class="chart-legend-item">
+                                            <i class="fa fa-circle" style="color: rgba(242, 240, 124, 1); margin-right: 5px; font-size:8px">
+                                            </i>
+                                            <b style="font-size:16px">skip:</b>
+                                            <span id="skip_cnt">0</span>
                                         </sapn>
                                         <sapn class="chart-legend-item">
+                                            <i class="fa fa-circle" style="color: rgba(247, 94, 104, 1); margin-right: 5px; font-size:8px">
+                                            </i>
+                                            <b style="font-size:16px">wrong:</b>
+                                            <span id="wrong_cnt">0</span>
                                         </sapn>
                                     </div>
                                 </div>
@@ -617,42 +635,66 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
         </div>
     </div>
 
-    {% block script %}
     <script>
-
-
-        let end_flag = '{{ end_flag }}'
         let cache_str = '{{ cache_str }}'
         let question_count = '{{ question_count }}'
+        let section_id = "{{ section_id }}"
+        let lang = "{{ lang }}"
+
+        let nos = 1
+        let quiz_process = []
+
+        // params for doughnut chart
+        if (lang == 'ar') {
+            var labels = ['إجابات صحيحة', 'تخطي', 'إجابات خاطئة', 'متبقي من الاسئلة']
+        } else {
+            var labels = ['correct', 'skip', 'wrong', 'left']
+        }
+
+        var data = {
+            labels: labels,
+            datasets: [{
+                label: 'My First Dataset',
+                data: [0, 0, 0, 100],
+                backgroundColor: [
+                    "rgb(204, 255, 221)",
+                    "rgb(153, 214, 255)",
+                    "rgb(255, 102, 102)",
+                    "rgb(245, 204, 255)"
+                ],
+                borderColor: "#FFFFFF",
+                borderWidth: 4,
+                weight: 1
+            }]
+        };
+
+        var options = {
+            aspectRatio: 1,
+            responsive: true,
+            cutout: 60,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ":" + context.parsed + "%";;
+                        }
+                    }
+                },
+                legend: {
+                    display: false
+                },
+            }
+        }
+
+        var chart_config = {
+            type: 'doughnut',
+            data: data,
+            options: options,
+        };
+
+        let myChart = null
 
         $(document).ready(function () {
-            question_no = '{{ question_no }}'
-            console.log(question_no)
-
-            // preventing the redirect back via browswer back button in quiz process
-            last_question = localStorage.getItem('last_question');
-            let end_flag = "{{ end_flag }}"
-            if ((end_flag !== "1") && (parseInt(question_no) < parseInt(last_question))) {
-                window.location.href = '/quiz/{{ course.course_url }}/{{ quiz_id }}/?question='+last_question
-            }
-
-            localStorage.setItem('totalQuizCount', question_count)
-            right = localStorage.getItem('right');
-            wrong = localStorage.getItem('wrong');
-            skip = localStorage.getItem('skip');
-
-            rightdiv = $('#attendanceDoughnutChartLegend').children().eq(0);
-            skipdiv = $('#attendanceDoughnutChartLegend').children().eq(1);
-            wrongdiv = $('#attendanceDoughnutChartLegend').children().eq(2);
-
-            rightdiv.html('');
-            skipdiv.html('');
-            wrongdiv.html('');
-
-            rightdiv.html('<i class="chart-legend-indicator" style="background-color: rgba(85, 103, 255, 1);text-align:right !important"></i><b>إجابة صحيحة</b>  :  ' + right)
-            skipdiv.html('<i class="chart-legend-indicator" style="background-color: rgba(242, 240, 124, 1)"></i><b>تخطي</b>  :  ' + skip)
-            wrongdiv.html('<i class="chart-legend-indicator" style="background-color: rgba(247, 94, 104, 1)"></i><b>إجابة خاطئة</b>  :  ' + wrong);
-
             $(".quiz-a").click(function(){
 
                 $(".quiz-a").css({ 'background-color' : '', 'color' : '' });
@@ -665,70 +707,9 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                 $(this).attr("id","thisisselected");
             });
 
-            let right_percent = 0;
-            if (question_count !== "0" && right !== "0")
-                right_percent = Math.round(parseInt(right) / parseInt(question_count) * 100)
-
-            let skip_percent = 0;
-            if (question_count !== "0" && skip !== "0")
-                skip_percent = Math.round(parseInt(skip) / parseInt(question_count) * 100)
-
-            let wrong_percent = 0;
-            if (question_count !== "0" && wrong !== "0")
-                wrong_percent = Math.round(parseInt(wrong) / parseInt(question_count) * 100)
-
-            let left_percent = 100 - right_percent - skip_percent - wrong_percent;
-
-            const data = {
-                labels: [
-                    'إجابات صحيحة',
-                    'تخطي',
-                    'إجابات خاطئة',
-                    'متبقي من الاسئلة'
-                ],
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [right_percent, skip_percent, wrong_percent, left_percent],
-                    backgroundColor: [
-                        "rgb(204, 255, 221)",
-                        "rgb(153, 214, 255)",
-                        "rgb(255, 102, 102)",
-                        "rgb(245, 204, 255)"
-                    ],
-                    borderColor: "#FFFFFF",
-                    borderWidth: 4,
-                    weight: 1
-                    // hoverOffset: 4
-                }]
-            };
-
-            const options = {
-                aspectRatio: 1,
-                responsive: true,
-                cutout: 60,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.label + ":" + context.parsed + "%";;
-                            }
-                        }
-                    },
-                    legend: {
-                        display: false
-                    },
-                }
-            }
-
-            const config = {
-                type: 'doughnut',
-                data: data,
-                options: options,
-            };
-
-            const myChart = new Chart(
+            myChart = new Chart(
                 document.getElementById('attendanceDoughnutChart'),
-                config
+                chart_config
             );
 
         });
@@ -766,18 +747,24 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
         }
 
         function skipAnswer() {
-            skip = localStorage.getItem('skip');
-            skip = skip*1 + 1
-            localStorage.setItem('skip', skip)
+            // fetching next question
+            let url = "/check_answer/"
+            let data = {
+                'section_id': section_id,
+                'nos': nos,
+                'selected_idx': -1
+            }
+            $.post(url, data, function(res) {
+                // save the process for answering by user into array variable
+                quiz_process.push({'status':'skip', 'selected': -1});
 
-            question_no = '{{ question_no }}'
-            question_no = question_no * 1 + 1
-            localStorage.setItem('last_question', question_no)
+                // go to final page when user ends 
+                if (res.title == "") {  
+                    setInterval(function() {finalize(quiz_process)}, 1000);     
+                }
 
-            // if ((question_no - 1) === parseInt(question_count))
-            //     localStorage.setItem('last_question', question_no-1)
-
-            location = '/quiz/{{ course.course_url }}/{{ quiz_id }}/?question='+question_no
+                updateQuestionScreen(res.title, res.contents, quiz_process);
+            })
         }
 
         function checkAnswer() {
@@ -800,62 +787,110 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                 $("#alert_modal_back").css({
                     'display': 'block'
                 })
-                $("#alert_title").html('قيمة خالية')
-                $("#alert_content").html('فضلا قم باختيار اجابة من الحقول ')
+
+                if (lang == 'ar') {
+                    $("#alert_title").html('قيمة خالية')
+                    $("#alert_content").html('فضلا قم باختيار اجابة من الحقول ')    
+                } else {
+                    $("#alert_title").html('No Answer')
+                    $("#alert_content").html('Please choose answer.')
+                }
                 return;
             }
-            let answer = '{{ answerList }}'
-            let answerList = answer.split(',')
-            answerList.pop()
-            let idx = 0
-            let flag = true;
+
+            // getting the index of answer selected by user
+            let idx = 0;
             $(".quizAns").each(function() {
-                if($(this).is(":checked").toString() != answerList[idx])
-                    flag = false;
-                idx ++
+                if($(this).is(":checked"))
+                    return false;
+                idx++;
             })
 
-            idx = 0
-            $(".quiz-a").each(function() {
-                if (answerList[idx] == "true")
-                    $(this).css({
-                        'background-color': 'green'
-                    })
-                if($(this).attr('id') == "thisisselected") {
-                    if(answerList[idx] != "true")
-                        $(this).css({
-                            'background-color': 'red'
-                        })
-                }
-                idx++
-            })
-
-            right = localStorage.getItem('right');
-            wrong = localStorage.getItem('wrong');
-            skip = localStorage.getItem('skip');
-
-            if(flag == true) {
-                right = right*1 + 1
-            } else {
-                wrong = wrong*1 + 1
+            // comparing current answer and fetching next question
+            let url = "/check_answer/"
+            let data = {
+                'section_id': section_id,
+                'nos': nos,
+                'selected_idx': idx
             }
-            localStorage.setItem('right', right)
-            localStorage.setItem('wrong', wrong)
-            localStorage.setItem('skip', skip)
+            $.post(url, data, function(res) {
+                // save the process for answering by user into array variable
+                quiz_process.push({'status':res.status, 'selected': idx})
 
-            /*if(end_flag*1 == 1){
-                $("#checkbtn").attr({
-                    'disabled': 'disabled'
-                })
-                $("#checkbtn").css({
-                    'cursor': 'not-allowed'
-                })
-            } else {*/
-            question_no = '{{ question_no }}'
-            question_no = question_no * 1 + 1
-            localStorage.setItem('last_question', question_no)
-            location = '/quiz/{{ course.course_url }}/{{ quiz_id }}/?question='+question_no
-            /*}*/
+                // go to final page when user ends 
+                if (res.title == "")
+                    setInterval(function() {finalize(quiz_process)}, 1000);
+
+                updateQuestionScreen(res.title, res.contents, quiz_process)
+            })
+        }
+
+        function updateQuestionScreen(title, contents, quiz_process) {
+            // updating question html
+            $("#QuizTitle").html(title)
+            var i = 0;
+            $(".quiz-a").each(function() {
+                $(this).html(contents[i])
+                i++;
+            })
+
+            $(".quiz-a").css({ 'background-color' : '', 'color' : '' });
+            $(".quizAns").prop( "checked", false );
+
+            // for next question
+            nos++
+
+            // updating chart
+            correct_cnt = 0;
+            skip_cnt = 0;
+            wrong_cnt = 0;
+            for (let item of quiz_process) {
+                switch(item.status) {
+                    case 'true':
+                        correct_cnt++;
+                        break;
+                    case 'skip':
+                        skip_cnt++;
+                        break;
+                    case 'false':
+                        wrong_cnt++;
+                        break;
+                }
+            }
+
+            $('#correct_cnt').html(correct_cnt)
+            $('#skip_cnt').html(skip_cnt)
+            $('#wrong_cnt').html(wrong_cnt)
+
+            correct_percent = Math.round(correct_cnt / parseInt(question_count) * 100);
+            skip_percent = Math.round(skip_cnt / parseInt(question_count) * 100);
+            wrong_percent = Math.round(wrong_cnt / parseInt(question_count) * 100);
+            left_percent = 100 - correct_percent - skip_percent - wrong_percent;
+
+            myChart.data.datasets[0].data = [correct_percent, skip_percent, wrong_percent, left_percent]
+            myChart.update('active')
+        }
+
+        function finalize(quiz_process) {
+            var form = document.createElement("form");
+            form.method = "POST";
+            if (lang == 'ar') 
+                form.action = "/ar/quiz/final/";
+            else
+                form.action = "/en/quiz/final/";
+
+            var element1 = document.createElement("input");
+            element1.name = "quiz_process"
+            element1.value = JSON.stringify(quiz_process)
+            form.appendChild(element1);
+
+            var element2 = document.createElement("input");
+            element2.name = "section_id"
+            element2.value = section_id
+            form.appendChild(element2);
+
+            document.body.appendChild(form);  
+            form.submit();
         }
 
         function continueLater(){
@@ -881,5 +916,4 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
             })
         }
     </script>
-    {% endblock %}
 {% endblock %}

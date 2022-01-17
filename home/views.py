@@ -1852,7 +1852,7 @@ def sendConfirmationMail(objUA, domain, user_group_id, request):
         to = objUA.email
 
         subject = 'Thanks for activating your email, welcome!'
-        msg = EmailMultiAlternatives(subject, '...', 'support@booctep.com', [to])
+        msg = EmailMultiAlternatives(subject, 'Please find details of Candidate in this mail', 'support@booctep.com', [to])
         msg.attach_alternative(text, "text/html")
         msg.send()
     except:

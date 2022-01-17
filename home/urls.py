@@ -50,11 +50,7 @@ urlpatterns = [
 
     # VIDEOS
     url(r'^video/playground/(?P<id>[0-9]+)/addtoprogress/$', addtoprogress, name='video addtoprogress'),
-
-
-    url(r'^video/quiz2/$', video_quiz2, name='teacher quiz2'),
-    # url(r'^video/quiz2/(?P<id>[0-9]+)/$', video_quiz2, name='teacher quiz2'),
-    url(r'^video/quiz3/(?P<id>[0-9]+)/$', video_quiz3, name='teacher quiz3'),
+    # url(r'^video/quiz3/(?P<id>[0-9]+)/$', video_quiz3, name='teacher quiz3'),
 
     url(r'^save_become_teacher/$', save_become_teacher, name='save become teacher'),
 

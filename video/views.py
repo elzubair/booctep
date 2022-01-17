@@ -22,6 +22,7 @@ from random import randint
 from tempfile import *
 from subprocess import Popen, PIPE
 
+import json
 
 def getVideoCnt(course):
     ssss = Sections.objects.filter(course_id=course.id).values_list("id", flat=True)
@@ -203,90 +204,112 @@ def video_quiz(request, course_name, quiz_id):
     cache_str = ''
     if Cache.objects.filter(key=key).exists():
         cache_str = Cache.objects.filter(key=key)[0].cache_str
-    if question_no == None:
-        return render(request, 'video/quiz.html', {'course': course, 'question_count': question_length, 'quiz_id': quiz_id})
-    else:
-        end_flag = 0
-        last_question_no = questions.objects.filter(section_id=quiz_id).order_by('-nos')[0].nos
-        if int(question_no) == int(last_question_no) + 1:
-            end_flag = 1
-        if int(question_no) == int(last_question_no):
-            end_flag = 2
-        if end_flag != 1:
-            question = questions.objects.filter(section_id=quiz_id, nos=question_no)[0]
-            answer = question.answer
-            left = question_length - int(question_no)
-            title = question.title
-            eleList = question.content.split(',')
-            eleList.pop()
-        else:
-            eleList = []
-            left = 0
-            title = ''
-            answer = ''
-            question_no = int(question_no) - 1
-        return render(request, 'video/quiz2.html', {'course': course, 'question_count': question_length, 'quiz_id': quiz_id, 'end_flag': end_flag, 'cache_str': cache_str,
-                                                    'question_no': question_no, 'left': left, 'eleList': eleList, 'answerList': answer, 'title': title})
+    return render(request, 'video/quiz.html', {'course': course, 'question_count': question_length, 'quiz_id': quiz_id})
 
+def quiz_question(request, course_name, quiz_id):
+    question_list = questions.objects.filter(section_id=quiz_id)
+    question_count = len(question_list)
+    left = question_count - 1
+    question = questions.objects.filter(section_id=quiz_id, nos=1)[0]
+    title = question.title
+    contents = question.content.split(',')
+    contents.pop()
+    return render(request, 'video/quiz2.html', {'section_id':quiz_id, 'contents': contents, 'title': title, 'question_count': question_count,
+                                                'left': left})
 
-def video_quiz2(request):
-    quizNo = request.POST.get('quizNo')
-    id = request.POST.get('course_id')
-    course = Courses.objects.get(pk=id)
+def checkAnswer(request):
+    section_id = request.POST.get('section_id')
+    nos = int(request.POST.get('nos'))
+    selected_index = int(request.POST.get('selected_idx'))
 
-    right = request.POST.get('right')
-    wrong = request.POST.get('wrong')
-    skip = request.POST.get('skip')
+    # comparing the current question
+    question = questions.objects.filter(section_id=section_id).filter(nos=nos)
+    question = question[0]
+    answers = question.answer.split(",")
+    answers.pop()
 
-    if right == None:
-        right = 0
-    if wrong == None:
-        wrong = 0
-    if skip == None:
-        skip = 0
+    # if user press 'skip' button
+    if selected_index < 0:
+        selected_answer = 'skip'
+    # if user press 'check answer' button
+    else:    
+        selected_answer = answers[selected_index]
 
-    if quizNo == None:
-        if Sections.objects.filter(course_id=course.id).filter(type='question').exists():
-            sectionList = Sections.objects.filter(course_id=course.id).filter(type='question').values_list('id',
-                                                                                                           flat=True)
-            sectionList = map(str, sectionList)
-            idstr = ','.join(sectionList)
-            quesList = questions.objects.extra(where=['FIND_IN_SET(section_id, "' + idstr + '")']).order_by('id')
+    contents = []
+    title = ""
 
-            if quesList.count() == 0:
-                return redirect("/courses/")
+    # getting next question
+    nos += 1
+    next_question = questions.objects.filter(section_id=section_id).filter(nos=nos)
+    if len(next_question) > 0:
+        next_question = next_question[0]
+        title = next_question.title
+        contents = next_question.content.split(',')
+        contents.pop()
+
+    return JsonResponse({
+        'status': selected_answer,
+        'title': title,
+        'contents': contents
+    })
+
+@csrf_exempt
+def final_quiz(request):
+    quiz_process = request.POST.get('quiz_process')
+    section_id = request.POST.get('section_id')
+
+    print("quiz_process:::::", quiz_process)
+    print("section_id:::::", section_id)
+
+    quiz_process = json.loads(quiz_process)
+
+    course_id = Sections.objects.get(pk=section_id).course_id
+    course_name = Courses.objects.get(pk=course_id).name
+
+    question_list = questions.objects.filter(section_id=section_id)
+    for index in range(len(question_list)):
+        content = question_list[index].content.split(",")
+        content.pop()
+        
+        ans = question_list[index].answer.split(",")
+        ans.pop()
+
+        answers = []
+        for i in range(len(content)):
+            answer = {}
+            answer["answer_content"] = content[i]
+
+            if quiz_process[index]['selected'] > -1:
+                if i == quiz_process[index]['selected']:
+                    answer["answer_type"] = "red"
+
+                if ans[i] == 'true':
+                    answer["answer_type"] = "blue"
             else:
-                question = quesList[0]
-                quesCnt = quesList.count()
-                quesEleList = question.content.split(',')
-                quesEleList.pop()
-    else:
-        if Sections.objects.filter(course_id=course.id).filter(type='question').exists():
-            sectionList = Sections.objects.filter(course_id=course.id).filter(type='question').values_list('id',
-                                                                                                           flat=True)
-            sectionList = map(str, sectionList)
-            idstr = ','.join(sectionList)
-            quesList = questions.objects.extra(where=['FIND_IN_SET(section_id, "' + idstr + '")']).order_by('id')
+                if ans[i] == 'true':
+                    answer["answer_type"] = "green"
 
-            if quesList.count() == 0:
-                return redirect("/courses/")
-            else:
-                quizNo = int(quizNo)
-                quesCnt = quesList.count()
-                if quizNo * 1 >= quesCnt:
-                    return redirect('/courses')
-                question = quesList[quizNo]
-                quesEleList = question.content.split(',')
-                quesEleList.pop()
-    if quizNo == None:
-        quizNo = 0;
-    return render(request, 'video/quiz2.html',
-                  {'question': question, 'count': quesCnt, 'eleList': quesEleList, 'questionNo': (quizNo + 1),
-                   'course_id': id, 'left': quesCnt - quizNo - 1, 'right': right, 'wrong': wrong, 'skip': skip})
+            answers.append(answer)
+        question_list[index].answers = answers
 
+    # percent for chart
+    correct_cnt = 0
+    skip_cnt = 0
+    wrong_cnt = 0
+    for process in quiz_process:
+        if process['status'] == 'true':
+            correct_cnt += 1
+        elif process['status'] == 'skip':
+            skip_cnt += 1
+        elif process['status'] == 'false':
+            wrong_cnt += 1
 
-def video_quiz3(request, id):
-    return render(request, 'video/quiz3.html', {})
+    correct_percent = correct_cnt / len(question_list) * 100
+    skip_percent = skip_cnt / len(question_list) * 100
+    wrong_percent = wrong_cnt / len(question_list) * 100
+
+    return render(request, 'video/quiz3.html', {'course_name': course_name, 'questions': question_list, 
+        'correct_percent': correct_percent, 'skip_percent': skip_percent, 'wrong_percent':wrong_percent})
 
 
 def getQuiz(request):

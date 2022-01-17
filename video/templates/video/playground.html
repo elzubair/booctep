@@ -486,10 +486,10 @@ background:#3A3A3A;
                                         <div class="nav-item navbar-list__item">
                                             {% get_current_language as lang %}
                                             {% if lang == "ar" %}
-                                            <a href="/ar/courses" class="nav-link h-auto mediabout mediabout-dark"><i
+                                            <a href="{% url 'student courses' %}" class="nav-link h-auto mediabout mediabout-dark"><i
                                                     class="material-icons icon--left mediabout mediabout-dark">keyboard_backspace</i> الرجوع إلى لوحة التحكم</a>
                                             {% else %}
-                                            <a href="/en/courses" class="nav-link h-auto mediabout mediabout-dark"><i
+                                            <a href="{% url 'student courses' %}" class="nav-link h-auto mediabout mediabout-dark"><i
                                                     class="material-icons icon--left mediabout mediabout-dark">keyboard_backspace</i> Back to
                                                 Dashboard</a>
                                             {% endif %}    
@@ -515,22 +515,16 @@ background:#3A3A3A;
                                     <div class="fleeex ">
                                         <a class="troph-2 mediabout mediabout-dark" href="#" style="margin-right: 30px;"
                                         onclick="openRatingModal()"><b style="font-size: 17px;">أضف تقييم</b> <i class="fa fa-star troph-i mediabout mediabout-dark"></i></a>
-
-                                        
                                         {% if course.price > 0 %}
-                                        <p class="troph mediabout mediabout-dark" id="cert" style="cursor:not-allowed !important;" onclick="gotoQuiz()"><b style="font-size: 17px;" >أختبار الحصول على الشهادة</b>  <i
-                                                class="fa fa-trophy troph-i"></i></p>
-
+                                        <a href="{% url 'student quiz' course_name=course.course_url quiz_id=quiz_id %}"><p class="troph mediabout mediabout-dark" id="cert" style="cursor:not-allowed !important;"><b style="font-size: 17px;" >أختبار الحصول على الشهادة</b><i class="fa fa-trophy troph-i"></i></p></a>
                                         {% endif %}
-
-                                        
                                     </div>
                                     {% else %}
                                     <a class="troph-2 mediabout mediabout-dark" href="#" style="margin-left: 45px !important;"
                                        onclick="openRatingModal()">Leave your ratings <i class="fa fa-star troph-i mediabout mediabout-dark"></i></a>
                                     
-                                    <p class="troph mediabout mediabout-dark" id="cert" style="cursor:not-allowed !important;" onclick="gotoQuiz()">Get your certificate <i
-                                            class="fa fa-trophy troph-i"></i></p>
+                                    <a href="{% url 'student quiz' course_name=course.course_url quiz_id=quiz_id %}"><p class="troph mediabout mediabout-dark" id="cert" style="cursor:not-allowed !important;">Get your certificate <i
+                                            class="fa fa-trophy troph-i"></i></p></a>
                                     
                                     {% endif %}
                                 </div>
@@ -981,7 +975,7 @@ background:#3A3A3A;
         let count = 0
 
         function gotoQuiz() {
-            location = '/quiz/{{ course.course_url }}/{{ quiz_id }}';
+            location = '/{{ lang }}/quiz/{{ course.course_url }}/{{ quiz_id }}';
         }
 
         function saveCache() {
