@@ -308,7 +308,7 @@ def final_quiz(request):
     skip_percent = skip_cnt / len(question_list) * 100
     wrong_percent = wrong_cnt / len(question_list) * 100
 
-    return render(request, 'video/quiz3.html', {'course_name': course_name, 'questions': question_list, 
+    return render(request, 'video/quiz3.html', {'course_id': course_id, 'course_name': course_name, 'questions': question_list, 
         'correct_percent': correct_percent, 'skip_percent': skip_percent, 'wrong_percent':wrong_percent})
 
 

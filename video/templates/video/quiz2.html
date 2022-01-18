@@ -376,20 +376,6 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                                             </div>
                                         </div>
                                     </nav>
-                                    {% get_current_language as lang %}
-                                    {% if lang == "ar" %}
-                                    {% if end_flag == 1 %}
-                                    <a class="troph mediabout mediabout-dark" id="cert" style="cursor: pointer!important; color:#ecb066;font-size: 18px;" onclick="getCertificate()" >احصل على شهادتك <i class="fa fa-trophy troph-i"></i></a>
-                                    {% else %}
-                                    <p class="troph mediabout mediabout-dark" style="font-size: 18px;">احصل على شهادتك <i class="fa fa-trophy troph-i"></i></p>
-                                    {% endif %}
-                                    {% else %}
-                                    {% if end_flag == 1 %}
-                                    <a class="troph" id="cert" style="cursor: pointer!important; color:#f5b568" onclick="getCertificate()" >Get your certificate <i class="fa fa-trophy troph-i"></i></a>
-                                    {% else %}
-                                    <p class="troph">Get your certificate <i class="fa fa-trophy troph-i"></i></p>
-                                    {% endif %}
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -720,29 +706,6 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
             })
             $("#alert_modal_back").css({
                 'display': 'none'
-            })
-        }
-
-        function getCertificate() {
-            let url = '/getCertificate/'
-            let form_data = new FormData()
-            let course_id = '{{ course.id }}';
-            form_data.append('course_id', course_id)
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                }
-            })
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: 'json',
-                async: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-            }).then(response =>{
-                window.open('/static' + response.src, '_blank')
             })
         }
 

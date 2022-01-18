@@ -516,14 +516,14 @@ background:#3A3A3A;
                                         <a class="troph-2 mediabout mediabout-dark" href="#" style="margin-right: 30px;"
                                         onclick="openRatingModal()"><b style="font-size: 17px;">أضف تقييم</b> <i class="fa fa-star troph-i mediabout mediabout-dark"></i></a>
                                         {% if course.price > 0 %}
-                                        <a href="{% url 'student quiz' course_name=course.course_url quiz_id=quiz_id %}"><p class="troph mediabout mediabout-dark" id="cert" style="cursor:not-allowed !important;"><b style="font-size: 17px;" >أختبار الحصول على الشهادة</b><i class="fa fa-trophy troph-i"></i></p></a>
+                                        <a href="javascript:void(0)"><p class="troph mediabout mediabout-dark" id="cert" style="cursor:not-allowed !important;"><b style="font-size: 17px;" >أختبار الحصول على الشهادة</b><i class="fa fa-trophy troph-i"></i></p></a>
                                         {% endif %}
                                     </div>
                                     {% else %}
                                     <a class="troph-2 mediabout mediabout-dark" href="#" style="margin-left: 45px !important;"
                                        onclick="openRatingModal()">Leave your ratings <i class="fa fa-star troph-i mediabout mediabout-dark"></i></a>
                                     
-                                    <a href="{% url 'student quiz' course_name=course.course_url quiz_id=quiz_id %}"><p class="troph mediabout mediabout-dark" id="cert" style="cursor:not-allowed !important;">Get your certificate <i
+                                    <a href="javascript:void(0)"><p class="troph mediabout mediabout-dark" id="cert" style="cursor:not-allowed !important;">Get your certificate <i
                                             class="fa fa-trophy troph-i"></i></p></a>
                                     
                                     {% endif %}
@@ -627,9 +627,9 @@ background:#3A3A3A;
                                 <span class="dropdown">
                                     <button onclick="myFunction()" class="dropbtn">&#9776;</button>
                                     <div id="myDropdown" class="dropdown-content">
-                                      <a href="#" onclick="openSpamModal()">تبليغ عن محتوى</a>
-                                      {% if interval < 30 and course.type == 0 %}
-                                        <a href="#" onclick="openRefundModal()" > طلب إسترداد</a>
+                                        <a href="#" onclick="openSpamModal()">تبليغ عن محتوى</a>
+                                        {% if course.type == 0 %}
+                                        <a href="#" onclick="openRefundModal()" id="refund_modal_menu"> طلب إسترداد</a>
                                         {% endif %}
                                     </div>
                                 </span>
@@ -640,13 +640,9 @@ background:#3A3A3A;
                                 <span class="dropdown">
                                     <button onclick="myFunction()" class="dropbtn">&#9776;</button>
                                     <div id="myDropdown" class="dropdown-content">
-                                        <a href="#"
-                                        style=""
-                                        onclick="openSpamModal()" class="">Report Spam </a>
-                                      {% if interval < 30 and course.type == 0 %}
-                                      <a href="#"
-                                      style=""
-                                      onclick="openRefundModal()" class="">Refund Money </a>
+                                        <a href="#" onclick="openSpamModal()">Report Spam </a>
+                                        {% if course.type == 0 %}
+                                        <a href="#" onclick="openRefundModal()" id="refund_modal_menu">Refund Money </a>
                                         {% endif %}
                                     </div>
                                 </span>
@@ -1051,10 +1047,16 @@ background:#3A3A3A;
 
             if (checkComplete()) {
                 $("#cert").removeAttr("style")
+                $("#cert").removeClass("mediabout")
+                $("#cert").removeClass("mediabout-dark")
                 $("#cert").attr('style', 'cursor: pointer !important; color: #de8413')
                 $("#medal").css({
                     'color': '#de8413',
                 })
+                // enabling to go to quiz
+                $('#cert').parent().attr('href', "{% url 'student quiz' course_name=course.course_url quiz_id=quiz_id %}")
+                // hide refund button
+                $("#refund_modal_menu").remove()
             }
             obj = $(`[data-srno=${memory.cur_video}]`)
             playmyvideo(obj)
@@ -1132,10 +1134,16 @@ background:#3A3A3A;
             $("#showProgress").html(cnt + '/' + memory.checkList.length)
             if (checkComplete()) {
                 $("#cert").removeAttr("style")
+                $("#cert").removeClass("mediabout")
+                $("#cert").removeClass("mediabout-dark")
                 $("#cert").attr('style', 'cursor: pointer !important; color: #de8413')
                 $("#medal").css({
                     'color': '#de8413',
                 })
+                // enabling to go to quiz
+                $('#cert').parent().attr('href', "{% url 'student quiz' course_name=course.course_url quiz_id=quiz_id %}")
+                // hide refund button
+                $("#refund_modal_menu").remove()
             } else {
                 $("#cert").attr('style', '')
                 $("#medal").css({
@@ -1503,10 +1511,16 @@ background:#3A3A3A;
                 $('#progress').css('width', prog + '%');
                 if (checkComplete()) {
                     $("#cert").removeAttr("style")
+                    $("#cert").removeClass("mediabout")
+                    $("#cert").removeClass("mediabout-dark")
                     $("#cert").attr('style', 'cursor: pointer !important; color: #de8413')
                     $("#medal").css({
                         'color': '#de8413',
                     })
+                    // enabling to go to quiz
+                    $('#cert').parent().attr('href', "{% url 'student quiz' course_name=course.course_url quiz_id=quiz_id %}")
+                    // hide refund button
+                    $("#refund_modal_menu").remove()
                 } else {
                     $("#cert").attr('style', '')
                     $("#medal").css({

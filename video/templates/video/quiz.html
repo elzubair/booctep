@@ -267,10 +267,10 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                                         <div class="nav-item navbar-list__item">
                                             {% get_current_language as lang %}
                                             {% if lang == "ar" %}
-                                            <a href="/ar/courses" class="nav-link h-auto mediabout mediabout-dark"><i
+                                            <a href="{% url 'student courses' %}" class="nav-link h-auto mediabout mediabout-dark"><i
                                                     class="material-icons icon--left mediabout mediabout-dark">keyboard_backspace</i> الرجوع إلى لوحة التحكم</a>
                                             {% else %}
-                                            <a href="/en/courses" class="nav-link h-auto mediabout mediabout-dark"><i
+                                            <a href="{% url 'student courses' %}" class="nav-link h-auto mediabout mediabout-dark"><i
                                                     class="material-icons icon--left mediabout mediabout-dark">keyboard_backspace</i> Back to
                                                 Dashboard</a>
                                             {% endif %}  
@@ -295,12 +295,6 @@ class="mdk-drawer-layout js-mdk-drawer-layout">
                                             </div>
                                         </div>
                                     </nav>
-                                    {% get_current_language as lang %}
-                                    {% if lang == "ar" %}
-                                    <p class="troph" style="font-size: 18px;">الحصول على شهادتي <i class="fa fa-trophy troph-i"></i></p>
-                                    {% else %}
-                                    <p class="troph">Get your certificate <i class="fa fa-trophy troph-i"></i></p>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>

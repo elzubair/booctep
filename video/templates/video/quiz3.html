@@ -76,7 +76,12 @@
                                 </div>
                             </nav> 
 
-                            <p class="troph">Get your certificate <i class="fa fa-trophy troph-i"></i></p>
+                            {% get_current_language as lang %}
+                            {% if lang == "ar" %}
+                            <a class="troph mediabout mediabout-dark" id="cert" style="cursor: pointer!important; color:#ecb066;font-size: 18px;" onclick="getCertificate()" >احصل على شهادتك <i class="fa fa-trophy troph-i"></i></a>
+                            {% else %}
+                            <a class="troph mediabout mediabout-dark" id="cert" style="cursor: pointer!important; color:#ecb066;font-size: 18px;" onclick="getCertificate()" >Get your certificate <i class="fa fa-trophy troph-i"></i></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -158,6 +163,8 @@
     var wp = parseFloat(wrong_percent);
     var lp = 100 - cp - sp - wp;
 
+    var course_id = "{{ course_id }}"
+
     var lang = "{{ lang }}"
 
     // params for doughnut chart
@@ -231,7 +238,31 @@
             document.getElementById('attendanceDoughnutChart'),
             chart_config
         );
+
+
     })
+
+    function getCertificate() {
+        let url = '/getCertificate/'
+        let form_data = new FormData()
+        form_data.append('course_id', course_id)
+        $.ajaxSetup({
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            async: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+        }).then(response =>{
+            window.open('/static' + response.src, '_blank')
+        })
+    }
 </script>
 
 {% endblock %}
