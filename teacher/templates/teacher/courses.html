@@ -4,10 +4,6 @@
 {% load i18n %}
 {% load l10n %}
 
-{% block title %}
-    Courses
-{% endblock %}
-
 
 {% block headercontent %}
     {% get_current_language as lang %}
@@ -20,6 +16,13 @@
             {% include "./layout/header.html" %}
         {% endwith %}
     {% endif %}    
+{% endblock %}
+
+
+
+
+{% block title %}
+دوراتي
 {% endblock %}
 
 {% block content %}

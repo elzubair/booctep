@@ -4,11 +4,6 @@
 {% load i18n %}
 
 
-{% block title %}
-    Courses
-{% endblock %}
-
-
 {% block headercontent %}
 {% get_current_language as lang %}
 {% if lang == "ar" %}
@@ -20,6 +15,11 @@
     {% include "./layout/header.html" %}
 {% endwith %}
 {% endif %}    
+{% endblock %}
+
+
+{% block title %}
+تفاعل الدورات
 {% endblock %}
 
 {% block content %}

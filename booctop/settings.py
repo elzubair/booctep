@@ -122,7 +122,7 @@ DATABASES = {
         'NAME': 'booctop',
         'USER': 'root', # 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': '127.0.0.1', #'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }

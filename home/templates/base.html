@@ -390,6 +390,8 @@ Page loader
     </style>
 
     <head>
+      <title>{% block title %}
+        {% endblock %}</title>
       <!-- head -->
       {% include "layout/head/head.html" %} {% block head %} 
       {% endblock %}

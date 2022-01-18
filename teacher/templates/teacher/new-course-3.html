@@ -152,10 +152,6 @@
                                 {% endif %}
                             </div>
                             <div class="list-group list-group-flush">
-                                <div class="list-group-item d-flex">
-                                    <a class="flex" href="#"><strong>حفظ المسودة</strong></a>
-                                    <i class="material-icons text-muted">التحقق من</i>
-                                </div>
                                 <div class="list-group-item">
                                     <a class="text-primary" style="cursor: pointer;"
                                     onclick="$('#prevStep').submit()"><strong>ارجع إلى تحرير الصفحة السابقة</strong></a>
@@ -165,6 +161,9 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="course" value="{{ course_id }}">
                                 </form>
+                                <div class="list-group-item" style="border-top: 0 !important;">
+                                    <a class="text-danger" onclick="showDelModal()"><strong>حذف الدورة</strong></a>
+                                </div>
                                 <!-- <div class="list-group-item">
                                     <a class="text-danger" onclick="showDelModal()"><strong>حذف الدورة</strong></a>
                                 </div> -->
@@ -172,7 +171,6 @@
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-outline-secondary mt-3 mb-sm-0" id="add_section">أضف سؤالا</a>
             </div>
         {% endif %}
         

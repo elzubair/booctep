@@ -13,11 +13,11 @@
     {% load static %}
     <!-- Quill Theme -->
     <link type="text/css" href="{% static 'teacher/assets/css/quill.css' %}" rel="stylesheet">
-
     <!-- Select2 -->
     <link type="text/css" href="{% static 'teacher/assets/css/select2.css' %}" rel="stylesheet">
 
     <link type="text/css" href="{% static 'teacher/assets/vendor/select2/select2.min.css' %}" rel="stylesheet">
+
 
     <!-- Sweet Alert -->
     <link rel="stylesheet" href="{% static 'teacher/assets/css/sweetalert.css' %}">
@@ -33,12 +33,11 @@
         {% with title="Add New Course" %}
             {% include "./layout/header.html" %}
         {% endwith %}
-    {% endif %}  
+{% endif %}  
 {% endblock %}
 
 {% block content %}
     {% load static %}
-
 
 
 
@@ -432,21 +431,22 @@ a.blakandwhate-dark{
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="list-group list-group-flush"style="border-bottom: 0 !important;">
-                                <div class="list-group-item" >
-                                    <a class="" style="cursor: pointer;color: rgb(147, 173, 223); border-bottom: 1px solid rgb(19, 27, 41);"
-                                    onclick="$('#prevStep').submit()"><strong style="text-decoration: none !important;font-size: 17px;">Go back to Edit previous page
-                                    
-                                    </strong></a>
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item">
+                                    <a class="text-primary" style="cursor: pointer;"
+                                    onclick="$('#prevStep').submit()"><strong>ارجع إلى تحرير الصفحة السابقة</strong></a>
                                 </div>
                                 {% get_current_language as lang %}
-                                <form action="/{{lang}}/teacher/add_course/?step=1" method="post" id="prevStep">
+                                <form action="/{{lang}}/teacher/add_course/?step=2" method="post" id="prevStep">
                                     {% csrf_token %}
                                     <input type="hidden" name="course" value="{{ course_id }}">
                                 </form>
                                 <div class="list-group-item" style="border-top: 0 !important;">
-                                    <a class="text-danger" onclick="showDelModal()"><strong>Delete Course</strong></a>
+                                    <a class="text-danger" onclick="showDelModal()"><strong>حذف الدورة</strong></a>
                                 </div>
+                                <!-- <div class="list-group-item">
+                                    <a class="text-danger" onclick="showDelModal()"><strong>حذف الدورة</strong></a>
+                                </div> -->
                             </div>
                         </div>
 
@@ -509,12 +509,10 @@ a.blakandwhate-dark{
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="list-group list-group-flush"style="border-bottom: 0 !important;">
-                                <div class="list-group-item" >
-                                    <a class="" style="cursor: pointer;color: rgb(147, 173, 223); border-bottom: 1px solid rgb(19, 27, 41);"
-                                    onclick="$('#prevStep').submit()"><strong style="text-decoration: none !important;font-size: 17px;">ارجع إلى تحرير الصفحة السابقة
-                                    
-                                    </strong></a>
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item">
+                                    <a class="text-primary" style="cursor: pointer;"
+                                    onclick="$('#prevStep').submit()"><strong>ارجع إلى تحرير الصفحة السابقة</strong></a>
                                 </div>
                                 {% get_current_language as lang %}
                                 <form action="/{{lang}}/teacher/add_course/?step=1" method="post" id="prevStep">
@@ -524,6 +522,9 @@ a.blakandwhate-dark{
                                 <div class="list-group-item" style="border-top: 0 !important;">
                                     <a class="text-danger" onclick="showDelModal()"><strong>حذف الدورة</strong></a>
                                 </div>
+                                <!-- <div class="list-group-item">
+                                    <a class="text-danger" onclick="showDelModal()"><strong>حذف الدورة</strong></a>
+                                </div> -->
                             </div>
                         </div>
 

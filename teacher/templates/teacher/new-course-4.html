@@ -133,43 +133,8 @@
                         </div>
 
 
-                        <div class="card mb-lg-0">
+             
 
-                            <div class="card-header text-center">
-                                <b style="font-size: medium;">This course include</b>
-                            </div>
-
-                            <div class="card-body">
-                                <ul class="list-unstyled list-todo" id="todo">
-                                    {% for inc in incList %}
-                                        <li>
-                                            <b class="ml-2">
-                                                <span class="fa fa-check mr-2" style="color: green; "></span>
-                                                {{ inc }}</b>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-
-                        </div>
-
-
-                        <div class="card mb-lg-0 mt-4">
-
-                            <div class="card-header text-center">
-                                <b style="font-size: medium;">The course Url:</b>
-                            </div>
-
-                            <div class="card-body">
-                                <ul class="list-unstyled list-todo" id="todo">
-                                    <a>
-                                        <b class="ml-2">
-                                            <span class="fa fa-check mr-2" style="color: green; "></span>
-                                            <a>https://booctep.com{{ course.course_url }}</b></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
 
 
                         <div class="card mb-lg-0 mt-4">
@@ -274,8 +239,7 @@
                                 </div>
                                 <div class="media-body">
                                     <p>
-                                        <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong><br>
-                                        <span class="text-muted">المؤسس ورئيس المجلس التنفيذي</span>
+                                        <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong>
                                     </p>
                                 </div>
                             </div>
@@ -329,44 +293,6 @@
                         </div>
 
 
-                        <div class="card mb-lg-0">
-
-                            <div class="card-header text-center">
-                                <b style="font-size: medium;">تشمل هذه الدورة</b>
-                            </div>
-
-                            <div class="card-body">
-                                <ul class="list-unstyled list-todo" id="todo">
-                                    {% for inc in incList %}
-                                        <li>
-                                            <b class="ml-2">
-                                                <span class="fa fa-check mr-2" style="color: green; "></span>
-                                                {{ inc }}</b>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-
-                        </div>
-
-
-                        <div class="card mb-lg-0 mt-4">
-
-                            <div class="card-header text-center">
-                                <b style="font-size: medium;">رابط الدورة التدريبية:</b>
-                            </div>
-
-                            <div class="card-body">
-                                <ul class="list-unstyled list-todo" id="todo">
-                                    <a>
-                                        <b class="ml-2">
-                                            <span class="fa fa-check mr-2" style="color: green; "></span>
-                                            <a>https://booctep.com{{ course.course_url }}</b></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
 
                         <div class="card mb-lg-0 mt-4">
 
@@ -383,14 +309,14 @@
                                             <a class="accordion__toggle" data-toggle="collapse" data-parent="#toc-1"
                                             href="#toc-video-{{ section.id }}">
                                                 <span class="flex">{{ section.name }}</span>
-                                                <span class="accordion__toggle-icon material-icons">سهم لوحة المفاتيح لأسفل</span>
+                                                <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
                                             </a>
                                             <div class="accordion__menu">
                                                 <ul class="list-unstyled collapse show" id="toc-video-{{ section.id }}">
                                                     {% for video in video_list %}
                                                         {% if video.section_id == section.id %}
                                                             <li class="accordion__menu-link">
-                                                                <span class="material-icons icon-16pt icon--left text-body">لعب مخطط الدائرة</span>
+                                                                <span class="material-icons icon-16pt icon--left text-body">play_circle_outline</span>
                                                                 <a class="flex">{{ video.name | slice:":-4" }}</a>
                                                                 <span class="text-muted">{{ video.duration }}دقيقة</span>
                                                             </li>
@@ -421,14 +347,14 @@
                                             <a class="accordion__toggle" data-toggle="collapse" data-parent="#toc-1"
                                             href="#toc-question-{{ section.id }}">
                                                 <span class="flex">أسئلة</span>
-                                                <span class="accordion__toggle-icon material-icons">سهم لوحة المفاتيح لأسفل</span>
+                                                <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
                                             </a>
                                             <div class="accordion__menu">
                                                 <ul class="list-unstyled collapse show" id="toc-question-{{ section.id }}">
                                                     {% for question in question_list %}
                                                         {% if question.section_id == section.id %}
                                                             <li class="accordion__menu-link">
-                                                                <span class="material-icons icon-16pt icon--left text-body">ساعة رملية_ فارغة</span>
+                                                                <span class="material-icons icon-16pt icon--left text-body">hourglass_empty</span>
                                                                 <a class="flex">{{ question.title }}</a>
                                                             </li>
                                                         {% endif %}
