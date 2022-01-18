@@ -335,9 +335,9 @@
                 <select id="acc_category" data-toggle="select" class="form-control form-control" onchange="setMarkChange()">
                     {% for c in objC %}
                         {% if c.id is profile.cat_id %}
-                            <option value="{{ c.id }}" selected>{{ c.name }}</option>
+                            <option value="{{ c.id }}" selected>{{ c.namear }}</option>
                         {% else %}
-                            <option value="{{ c.id }}">{{ c.name }}</option>
+                            <option value="{{ c.id }}">{{ c.namear }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>
@@ -350,9 +350,9 @@
 
                         {% if c.categories_id is profile.cat_id %}
                             {% if c.id is profile.subcat_ids %}
-                                <option value="{{ c.id }}" selected>{{ c.name }}</option>
+                                <option value="{{ c.id }}" selected>{{ c.namear }}</option>
                             {% else %}
-                                <option value="{{ c.id }}">{{ c.name }}</option>
+                                <option value="{{ c.id }}">{{ c.namear }}</option>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
@@ -468,6 +468,8 @@
 {% endblock %}
 {% block script %}
     <script>
+        {% get_current_language as lang %}
+        var lang = "{{ lang }}"
 
         let has_change = 0
 
@@ -522,10 +524,15 @@
                     let sub_cat = data.subcat_list;
                     let html_subCat = '';
                     sub_cat.forEach(cat => {
+                        if (lang == 'ar') 
+                            var subcategory_name = cat.namear
+                        else
+                            var subcategory_name = cat.name
+
                         if (subCategories.includes(cat.id.toString())) {
-                            html_subCat += '<option value="' + cat.id + '" selected>' + cat.name + '</option>';
+                            html_subCat += '<option value="' + cat.id + '" selected>' + subcategory_name + '</option>';
                         } else {
-                            html_subCat += '<option value="' + cat.id + '">' + cat.name + '</option>';
+                            html_subCat += '<option value="' + cat.id + '">' + subcategory_name + '</option>';
                         }
                     });
                     $('#acc_subcategory').empty();

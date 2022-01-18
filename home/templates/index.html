@@ -1160,18 +1160,6 @@
             });
         }
 
-        function playmyvideo(obj) {
-            url = $(obj).data('url')
-            $("#modal-video-src").attr('src', "../../../../static" + url)
-            $(".app-video video")[0].load();
-            $("#videos-modal .fa-play").attr('class', 'fa fa-video')
-            $(obj).prev().attr('class', 'fa fa-play')
-        }
-
-        // document.querySelector(".banner__close").addEventListener("click", function () {
-        //     this.closest(".banner").style.display = "none";
-        // });
-
         // var socket = io.connect("http://localhost:3000")
         var socket = io.connect("https://booctep.com")
         var myfunc = null
