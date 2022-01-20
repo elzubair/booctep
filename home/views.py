@@ -239,7 +239,6 @@ def home_view(request):
             for course in stu_courses:
                 courses = Courses.objects.get(pk=course.course_id_id)
                 course.videoCnt = getVideoCnt(courses)
-            print("stu_courses:::", stu_courses)
             return render(request, 'index.html',
                           {'course_list': course_list, 'page': page, 'type': type,
                            'lang': getLanguage(request)[0], "user_id": user_id, "category_obj": category_obj,
@@ -2852,117 +2851,6 @@ def searching(request):
                                            'cartList': cartListShow, 'favCnt': favCnt, 'cartCnt': cartCnt,
                                            'cartTotalSum': cartTotalSum, 'noti_cnt': noti_cnt, 'stu_msg_list': stu_msg_list, 'stu_msg_cnt': stu_msg_cnt, 'total_msg_cnt': total_msg_cnt,
                                            'noti_list': noti_list, 'msg_list': msg_list, 'msg_cnt': msg_cnt, 'page': page, 'type': type, 'order': order, 'host_url': host_url})
-
-
-    # if (Courses.objects.filter(name__icontains=searchkeyword).exists()):
-    #     # searchstatus = 1
-    #     allsearchresult = Courses.objects.filter(name__icontains=searchkeyword)
-    #     totalsearchresult = allsearchresult.count()
-
-    #     course_list = allsearchresult
-    #     course_free_list = Courses.objects.filter(name__icontains=searchkeyword, type=1)
-    #     course_paid_list = Courses.objects.filter(name__icontains=searchkeyword, type=0)
-
-    #     for course in course_list:
-    #         course.link = courseUrlGenerator(course)
-
-    #     for course in course_free_list:
-    #         course.link = courseUrlGenerator(course)
-
-    #     for course in course_paid_list:
-    #         course.link = courseUrlGenerator(course)
-
-    #     ## Pagination
-
-    #     # number_of_courses_in_a_page = 1
-    #     # course_list_page = request.GET.get('course_list_page',1)
-    #     # course_list_paginator = Paginator(course_list,number_of_courses_in_a_page)
-
-    #     # try:
-    #     #     course_list = course_list_paginator.page(course_list_page)
-    #     # except PageNotAnInteger:
-    #     #     course_list = course_list_paginator.page(1)
-    #     # except EmptyPage:
-    #     #     course_list = course_list_paginator.page(course_list_paginator.num_pages)
-
-    #     # course_paid_list_page = request.GET.get('course_paid_list_page',1)
-    #     # course_paid_list_paginator = Paginator(course_paid_list,number_of_courses_in_a_page)
-
-    #     # try:
-    #     #     course_paid_list = course_paid_list_paginator.page(course_paid_list_page)
-    #     # except PageNotAnInteger:
-    #     #     course_paid_list = course_paid_list_paginator.page(1)
-    #     # except EmptyPage:
-    #     #     course_paid_list = course_paid_list_paginator.page(course_paid_list_paginator.num_pages)
-
-    #     # course_free_list_page = request.GET.get('course_free_list_page',1)
-    #     # course_free_list_paginator = Paginator(course_free_list,number_of_courses_in_a_page)
-
-    #     # try:
-    #     #     course_free_list = course_free_list_paginator.page(course_free_list_page)
-    #     # except PageNotAnInteger:
-    #     #     course_free_list = course_free_list_paginator.page(1)
-    #     # except EmptyPage:
-    #     #     course_free_list = course_free_list_paginator.page(course_free_list_paginator.num_pages)
-
-    #     ## End Pagination
-
-    #     if user_type == "student":
-    #         favList = student_favourite_courses.objects.filter(student_id_id=request.user.id)
-    #         alreadyinFav = student_favourite_courses.objects.values('course_id_id').filter(
-    #             student_id_id=request.user.id)
-    #         alreadyinFavView = []
-
-    #         for value in range(len(alreadyinFav)):
-    #             alreadyinFavView.append(alreadyinFav[value]['course_id_id'])
-
-    #         favListShow = student_favourite_courses.objects.filter(student_id_id=request.user.id).order_by("-id")[:3]
-
-    #         cartList = student_cart_courses.objects.filter(student_id_id=request.user.id)
-    #         alreadyinCart = student_cart_courses.objects.values('course_id_id').filter(student_id_id=request.user.id)
-    #         alreadyinCartView = []
-
-    #         for value in range(len(alreadyinCart)):
-    #             alreadyinCartView.append(alreadyinCart[value]['course_id_id'])
-
-    #         cartListShow = student_cart_courses.objects.filter(student_id_id=request.user.id).order_by("-id")[:3]
-    #         cartTotalSum = 0
-
-    #         for cart in cartList:
-    #             cartTotalSum += cart.course_id.price
-
-    #         # show notification...
-    #         noti_list = notifications.objects.filter(user_id=user_id, is_read=0).order_by("-id")[:3]
-    #         noti_cnt = notifications.objects.filter(user_id=user_id, is_read=0).count()
-    #         return render(request, 'search.html', {'lang': getLanguage(request)[0],
-    #                                                'searchkeyword': searchkeyword,
-    #                                                'totalsearchresult': totalsearchresult, "user_id": user_id,
-    #                                                "category_obj": category_obj, 'favList': favListShow,
-    #                                                'alreadyinFav': alreadyinFavView, 'cartList': cartListShow,
-    #                                                'alreadyinCart': alreadyinCartView, 'favCnt': len(favList),
-    #                                                'cartCnt': len(cartList), 'cartTotalSum': cartTotalSum,
-    #                                                'noti_cnt': noti_cnt, 'noti_list': noti_list, 'msg_list': msg_list,
-    #                                                'msg_cnt': msg_cnt,
-    #                                                'course_list': course_list, 'course_free_list': course_free_list,
-    #                                                'course_paid_list': course_paid_list})
-    #     else:
-    #         return render(request, 'search.html', {'lang': getLanguage(request)[0],
-    #                                                'searchkeyword': searchkeyword,
-    #                                                'totalsearchresult': totalsearchresult, "category_obj": category_obj,
-    #                                                'course_list': course_list, 'course_free_list': course_free_list,
-    #                                                'course_paid_list': course_paid_list, 'favList': favListShow,
-    #                                                'cartList': cartListShow, 'favCnt': favCnt, 'cartCnt': cartCnt,
-    #                                                'cartTotalSum': cartTotalSum, 'noti_cnt': noti_cnt,
-    #                                                'noti_list': noti_list, 'msg_list': msg_list, 'msg_cnt': msg_cnt})
-
-    # else:
-    #     searchstatus = 0
-    #     return render(request, 'search.html',
-    #                   {'lang': getLanguage(request)[0], 'searchkeyword': searchkeyword,
-    #                    'favList': favListShow,
-    #                    'cartList': cartListShow, 'favCnt': favCnt, 'cartCnt': cartCnt,
-    #                    'cartTotalSum': cartTotalSum, 'noti_cnt': noti_cnt, 'noti_list': noti_list, 'msg_list': msg_list,
-    #                    'msg_cnt': msg_cnt})
 
 
 def single_category(request, category_name, id):
