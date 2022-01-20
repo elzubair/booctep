@@ -410,8 +410,7 @@
                                         <h4 class="mediabout mediabout-dark">Select category</h4>
                                         {% endif %}
                                         <div class="select selecttt">
-                                            <select class="selecttt  firstsubcategory" id="subcategory" class="subcategory" style="border-radius: 3px;">
-                                                <option></option>
+                                            <select class="selecttt  firstsubcategory" id="firstsubcategory" class="subcategory" style="border-radius: 3px;">
                                                 {% for i in objC %}
                                                     {% if lang == 'ar/' %}
                                                         <option value="{{ i.id }}" >{{ i.namear }}</option>
@@ -426,14 +425,20 @@
                                     <div class="combo-item secondsubsubcategorydiv" style="margin-top: 40px">
                                         <h4 class="mediabout mediabout-dark">Select subcategory</h4>
                                         <div class="select selecttt">
-                                            <select class="selecttt secondsubsubcategories" id="secondsubsubcategories" style="border-radius:3px; width:220px">
+                                            <select class="selecttt secondsubsubcategories" id="secondsubcategory" style="border-radius:3px; width:220px">
+                                                {% for i in objSubC %}
+                                                    {% if lang == 'ar/' %}
+                                                        <option value="{{ i.id }}" >{{ i.namear }}</option>
+                                                    {% else %}
+                                                        <option value="{{ i.id }}" >{{ i.name }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </select>
                                         </div>
                                     </div>
                                 </center>
                                 <div class="buttons">
-                                    <a class="button signin-button signin-button-is-dark process-button is-next" data-step="step-dot-2"
-                                       onclick="checkCategory()">{% trans 'Next' %}</a>
+                                    <a class="button signin-button signin-button-is-dark process-button is-next" data-step="step-dot-2">{% trans 'Next' %}</a>
                                     <a class="button signup-button signup-button-is-dark process-button" href="/signup">{% trans 'Back' %}</a>
                                 </div>
                             </div>
@@ -583,7 +588,7 @@
                     console.log("Beforesend")
                 },
                 success: function (data) {
-                    $(".secondsubsubcategorydiv").css("display","block");
+                    // $(".secondsubsubcategorydiv").css("display","block");
                     for (var c = 0; c < data.subcat_list.length; c++) {
                         var html = '';
                         {% if lang == 'ar/' %}
@@ -676,7 +681,6 @@
                 return false
             }
 
-            console.log('$("#subcategory").val() = ', $("#subcategory").val())
             $('#registernext').addClass(' is-loading');
             var formData = new FormData();
 
@@ -687,7 +691,8 @@
             formData.append('password', $("#password").val());
             formData.append('phone_number', 'none');
             formData.append('type', $("#type").val());
-            formData.append('subcategory', $("#subcategory").val());
+            formData.append('category', $("#firstsubcategory").val());
+            formData.append('subcategory', $("#secondsubcategory").val());
 
             console.log($("#first_name").val())
             $('#registernext').addClass('is-loading');
@@ -732,7 +737,7 @@
             }
         };
 
-        $(".secondsubsubcategorydiv").css("display","none")
+        // $(".secondsubsubcategorydiv").css("display","none")
 
         $(document).ready(function(){
            feather.replace();           

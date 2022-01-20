@@ -1035,18 +1035,10 @@
                                         <div class="column is-8">
                                             <div class="schedule schedule-dark " style="margin-top: -3px; ">
                                                 <div class="schedule-header">
-<<<<<<< Updated upstream
                                                     {% if vimeo_video|length == 0 %}
                                                     <video autoplay poster="{% static 'assets/img/setting.png' %}" id="videoplayer" playsinline controls style="width: 100%;">
                                                         <source src="../../../../static{{ promo_video }}" type="video/webm"/>
                                                         <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default/>
-=======
-                                                    <video autoplay poster="{% static 'assets/img/setting.png' %}" id="videoplayer" playsinline controls style="height: 450px !important;">
-                                                        <source src="../../../../static{{ promo_video }}"
-                                                                type="video/webm"/>
-                                                        <track kind="captions" label="English captions"
-                                                               src="/path/to/captions.vtt" srclang="en" default/>
->>>>>>> Stashed changes
                                                     </video>
                                                     {% else %}
                                                     <iframe src="https://player.vimeo.com/video/{{vimeo_video.0}}?h={{vimeo_video.1}}&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id={{vimeo_video.2}}" width="830" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="vimeo test"></iframe>

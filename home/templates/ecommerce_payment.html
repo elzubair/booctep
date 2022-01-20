@@ -667,9 +667,9 @@ textarea {
    height: 30px
 }
 
-.cart-content{
+/*.cart-content{
     height: 100vh !important;
-}
+}*/
 
 .shop-wrapper::-webkit-scrollbar {
     display: none !important;
@@ -1165,6 +1165,10 @@ function initSpinner(price) {
 }
 
 $(document).ready(function () {
+    // replacing the paypal logo
+    var paypal_logo = $("input[alt='Buy it Now']")
+    paypal_logo.attr("src", "{% static 'assets/img/paypal_logo_icon_128.png' %}")
+
   if ($('#shop-page').length) {
     //Tabs
     $('.store-tabs .tab-control').on('click', function () {

@@ -828,12 +828,19 @@ def signup(request):
     for cat in objC:
         item = {'name': cat.name, 'namear': cat.namear, 'id': cat.id}
         cat_list.append(item)
+
+    first_category_id = cat_list[0]['id']
+    objSubC = subcategories.objects.filter(categories_id=first_category_id)
+    subcat_list = []
+    for subcat in objSubC:
+        item = {'name': subcat.name, 'namear': subcat.namear, 'id': subcat.id}
+        subcat_list.append(item)
     
     user_id = request.session.get("user_id")
     if user_id is None:
         #del request.session['user_id']
         #del request.session['user_type']
-        return render(request, 'signup.html', {"objC": cat_list, 'lang': getLanguage(request)[0]})
+        return render(request, 'signup.html', {"objC": cat_list, "objSubC": subcat_list, 'lang': getLanguage(request)[0]})
     else:
         return redirect('/')
 
@@ -1620,6 +1627,7 @@ def register_user(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         phone_number = request.POST.get('phone_number')
+        category_id = request.POST.get('category')
         subcategory_id = request.POST.get('subcategory')
         type = request.POST.get('type')
         group_id = 1
@@ -1678,11 +1686,8 @@ def register_user(request):
             #     request.session['user_type'] = "teacher"
 
             if type == "teacher":
-                objSubCat = subcategories.objects.get(id=subcategory_id)
-                objUS = user_categories()
-                objUS.user = objUser
-                objUS.category = objSubCat
-                objUS.save()
+                profile = user_profile(user_id=objUser.id, cat_id=category_id, subcat_ids=subcategory_id)
+                profile.save()
             request.session['password'] = password
             domain = request.META['HTTP_HOST']
             msg = 'success'
