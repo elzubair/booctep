@@ -4151,6 +4151,23 @@ body {
     align-items: center
 }
 
+.control.has-icon .form-password-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 36px;
+    width: 36px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
 
 /* line 161, src/assets/scss/components/_components-forms.scss */
 

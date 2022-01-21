@@ -334,6 +334,9 @@
                                 <div class="form-icon">
                                     <i class="fa fa-key" style="font-size: x-small;"></i>
                                 </div>
+                                <div class="form-password-icon">
+                                    <i class="fa fa-eye"></i>
+                                </div>
                             </div>
                         </div>
                         <style>
@@ -498,7 +501,19 @@
 
         // $('#reset-password-modal').on('hidden.bs.modal', function () {
         //     console.log("modal hide forcely")
-        // })     
+        // })
+
+        $(".form-password-icon").on('click', function() {
+            if ($("#login_password").attr('type') === 'password') {
+                $("#login_password").attr('type', 'text')
+                var icon = $(this).children()[0]
+                icon.innerHTML = "<i class='fa fa-eye-slash'></i>"
+            } else {
+                $("#login_password").attr('type', 'password')
+                var icon = $(this).children()[0]
+                icon.innerHTML = "<i class='fa fa-eye'></i>"
+            }
+        })     
     });
     
     $("#resetpasswordbutton").click(function(){
