@@ -468,6 +468,16 @@
                                         <div class="control">
                                             <input type="password" class="input input-dark" style="margin-top: 5px;" id="password" name="password"
                                                    placeholder="{% trans 'Choose a password' %}">
+                                            {% get_current_language as lang %}
+                                            {% if lang == "ar" %}
+                                            <div style="position:absolute; left:5px; top:10px; opacity: 0.6;" id="password_icon">
+                                                <i class="fa fa-eye"></i>
+                                            </div>
+                                            {% else %}
+                                            <div  style="position:absolute; right:5px; top:10px; opacity: 0.6;" id="password_icon">
+                                                <i class="fa fa-eye"></i>
+                                            </div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="field field-dark">
@@ -475,6 +485,16 @@
                                             <input type="password" class="input input-dark" style="margin-top: 5px;" id="confirm_password"
                                                    name="confirm_password"
                                                    placeholder="{% trans 'Repeat your password' %}">
+                                            {% get_current_language as lang %}
+                                            {% if lang == "ar" %}
+                                            <div style="position:absolute; left:5px; top:10px; opacity: 0.6;" id="confirm_password_icon">
+                                                <i class="fa fa-eye"></i>
+                                            </div>
+                                            {% else %}
+                                            <div style="position:absolute; right:5px; top:10px; opacity: 0.6;" id="confirm_password_icon">
+                                                <i class="fa fa-eye"></i>
+                                            </div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -743,7 +763,31 @@
            feather.replace();           
             $('button').click(function(){
                 $('.alert').html('<i data-feather="activity"></i>');
-            });  
+            });
+
+            $("#password_icon").on('click', function() {
+                if ($("#password").attr('type') === 'password') {
+                    $("#password").attr('type', 'text')
+                    var icon = $(this).children()[0]
+                    icon.innerHTML = "<i class='fa fa-eye-slash'></i>"
+                } else {
+                    $("#password").attr('type', 'password')
+                    var icon = $(this).children()[0]
+                    icon.innerHTML = "<i class='fa fa-eye'></i>"
+                }
+            })
+
+            $("#confirm_password_icon").on('click', function() {
+                if ($("#confirm_password").attr('type') === 'password') {
+                    $("#confirm_password").attr('type', 'text')
+                    var icon = $(this).children()[0]
+                    icon.innerHTML = "<i class='fa fa-eye-slash'></i>"
+                } else {
+                    $("#confirm_password").attr('type', 'password')
+                    var icon = $(this).children()[0]
+                    icon.innerHTML = "<i class='fa fa-eye'></i>"
+                }
+            })  
         });
 
     </script>
