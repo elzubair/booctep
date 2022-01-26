@@ -48,7 +48,8 @@ urlpatterns = [
     # url('', include('discount.urls')),
 ]
 
-# handler404 = 'view_404'
+handler404 = 'home.views.view_404'
+
 # GETS
 urlpatterns += i18n.i18n_patterns(
     url(r'^admin', admin.site.urls),
