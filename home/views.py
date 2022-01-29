@@ -1648,7 +1648,7 @@ def register_user(request):
                     fd.write(chunk)
                 fd.close()
             except:
-                full_path = '/assets/img/userdefault.jpg'
+                full_path = '/assets/img/userdefault.png'
             dt = datetime.now()
             objUser = User(email=email, first_name=firstname, last_name=lastname, phone_number=phone_number,
                            password=password, is_staff=False, is_active=False, image=full_path, is_superuser=False,
