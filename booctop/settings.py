@@ -32,6 +32,7 @@ if READ_DOT_ENV_FILE:
     environ.Env.read_env()
 
 DEBUG = env('DEBUG')
+# DEBUG = False
 
 SECRET_KEY = env('SECRET_KEY')
 
@@ -111,19 +112,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # If you want to use local db, change this config and don't commit to repo.
 DATABASES = {
    'default': {
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'booctop',
-        # 'USER': 'root', # 'root',
-        # 'PASSWORD': 'root',
-        # 'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
-        # 'PORT': '3306',
-
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'booctop',
         'USER': 'root', # 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.1', #'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
+
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'booctop',
+        # 'USER': 'root', # 'root',
+        # 'PASSWORD': '',
+        # 'HOST': 'localhost', #'localhost',   # Or an IP Address that your DB is hosted on
+        # 'PORT': '3306',
     }
 }
 
@@ -241,14 +242,14 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
     ('picture', 'image'),
     ('1', 'group_id'),
 ]
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '466107803379-bshhl2pa7dpfdu60cooighn975ttpl84.apps.googleusercontent.com'
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'R0lfpjHGtqXPNRC7O8YzaVql'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1033113077182-430h4m94e4go7b2q9of2mb5mfu88rh85.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 # SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '695870330478-vsrte5l4rsf4d5amkm7v5vgd15kts8g3.apps.googleusercontent.com'
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1041581575562-f5tiq7l6uaf8mk5suo0m2dhq9krd49r6.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1041581575562-f5tiq7l6uaf8mk5suo0m2dhq9krd49r6.apps.googleusercontent.com'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 SOCIAL_AUTH_INSTAGRAM_KEY = '267910061521683'         #Client ID
 SOCIAL_AUTH_INSTAGRAM_SECRET = '95c0b482253e9eb434b35acfcdb106b5'  #Client SECRET
@@ -263,3 +264,36 @@ VIMEO_SECRET = 'jffm+bdiKCgVh1vVcWwOEwQzX7U+J6e/J1ecHdltMtM4Qgg6KAB4hf4W2oA/b5KP
 CRONJOBS = [
     ('0 13 * * *', 'teacher.cron.my_jobs')
 ]
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'verbose': {
+#             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+#             'datefmt' : "%d/%b/%Y %H:%M:%S"
+#         },
+#         'simple': {
+#             'format': '%(levelname)s %(message)s'
+#         },
+#     },
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': 'mysite.log',
+#             'formatter': 'verbose'
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers':['file'],
+#             'propagate': True,
+#             'level':'DEBUG',
+#         },
+#         'MYAPP': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#         },
+#     }
+# }
