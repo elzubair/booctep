@@ -116,17 +116,17 @@
                     <div class="form-group row align-items-center mb-0">
                         <label class="col-form-label form-label col-sm-3 mediabout mediabout-dark" style="letter-spacing: 0 !important;">أسمك الكامل ( كما هو مكتوب في الجواز )</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-dark" id="passport_number" placeholder="الرجاء التأكد من إدخال الاسم بشكل صحيح"
-                                   value="{{ card.passport_number }}"/>
+                            <input type="text" class="form-control form-control-dark" id="full_name" placeholder="الرجاء التأكد من إدخال الاسم بشكل صحيح"
+                                   value="{{ card.full_name }}"/>
                         </div>
                     </div>
                 </div>
                 <div class="list-group-item carddy card-dark">
                     <div class="form-group row align-items-center mb-0">
-                        <label class="col-form-label form-label col-sm-3 mediabout mediabout-dark" style="letter-spacing: 0 !important;">أسمك الكامل ( كما هو مكتوب في الجواز )</label>
+                        <label class="col-form-label form-label col-sm-3 mediabout mediabout-dark" style="letter-spacing: 0 !important;">رقم الجواز</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-dark" id="full_name" placeholder="الرجاء التأكد من إدخال الاسم بشكل صحيح"
-                                   value="{{ card.full_name }}"/>
+                            <input type="number" class="form-control form-control-dark" id="passport_number" placeholder="الرجاء التأكد من إدخال رقم الجواز بشكل صحيح"
+                                   value="{{ card.passport_number }}"/>
                         </div>
                     </div>
                 </div>
@@ -243,15 +243,15 @@
                 if (lang == 'ar')
                     showAlert(0, 'من فضلك قم بادخال المعلومات')
                 else
-                    showAlert(0, 'Please insert every field.')
+                    showAlert(0, 'ادخل جميع الحقول')
                 return;
             }
 
             if (change == 0) {
                 if (lang == 'ar')
-                    showAlert(0, 'أنت لم تغير أي شيء!')
+                    showAlert(0, 'عذرا هناك خطأ ما')
                 else
-                    showAlert(0, "You didn't change anything!")
+                    showAlert(0, "لم تقم بتغيير المعلومات")
                 return;
             }
 
@@ -273,12 +273,12 @@
                 data: form_data,
             }).then(response => {
                 if (response.status == 1) {
-                    showAlert(1, 'Saved Successfully!!!')
+                    showAlert(1, 'تم الحفظ بنجاح')
                     setInterval(function() {
                         location.reload();
                     }, 2000)
                 } else {
-                    showAlert(0, 'Errors in save!!')
+                    showAlert(0, 'هناك خطأ عاود المحاولة مجددا')
                 }
             })
         }

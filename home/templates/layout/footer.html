@@ -289,8 +289,14 @@
 
 <div class="cookiees">
   <img class="cookiees-icon" src="https://raw.githubusercontent.com/s1mpson/-/master/codepen/we-use-cookies/cookie.png">
-  <span class="cookiees-message">We are using cookies to give you best experience.</span>
-  <button class="cookiees-accept" onclick="hideCookie()">OK</button>
+  {% get_current_language as lang %}
+  {% if lang == "ar" %}
+  <span class="cookiees-message">نستخدم الكوكيز لمساعدتكم لخدمة أفضل</span>
+  <button class="cookiees-accept" onclick="hideCookie()" style="background-color: #fff; color: #0071FF;">موافق</button>
+  {% else %}
+  <span class="cookiees-message">We are using cookies to give best experience</span>
+  <button class="cookiees-accept" onclick="hideCookie()" style="background-color: #fff; color: #0071FF;">OK</button>
+  {% endif %}
 </div>
 
 <footer class="footer dark-footer">

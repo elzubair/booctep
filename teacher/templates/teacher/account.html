@@ -313,9 +313,9 @@
                     <a href="" class="media-right ">
                         
                         {% if profile.header_img %}
-                        <img src="{% static profile.header_img %}" style="border: 2px solid grey; height: 56px;" id="header_photo" alt="people" width="60" height="50" class=""/>
+                        <img src="{% static profile.header_img %}" style="border: 2px solid grey; height: 80px;width: 170px;" id="header_photo" alt="people" width="60" height="50" class=""/>
                         {% else %}
-                        <img src="{% static 'assets/img/defaultprofileheader.jpg' %}" style="border: 2px solid grey; height: 56px;" id="header_photo" alt="people" width="60" height="50" class=""/>
+                        <img src="{% static 'assets/img/defaultprofileheader.jpg' %}" style="border: 2px solid grey; height: 80px;width: 170px;" id="header_photo" alt="people" width="60" height="50" class=""/>
                         {% endif %}
                     </a>
                     <div class="media-body">
@@ -614,7 +614,7 @@
                 },
                 success: function (data) {
                     if (data.msg == "success") {
-                        showAlert(1, "Save changes successfully!")
+                        showAlert(1, "تم حفظ المعلومات بنجاح")
                         setTimeout(() => {
                             window.location.reload();
                         }, 2000)

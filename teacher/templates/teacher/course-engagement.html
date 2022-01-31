@@ -319,7 +319,7 @@ td.selected{
                             <p class="card-title d-flex align-items-center">
                                 <b class="mediabout mediabout-dark">مجموع الإيرادات</b>
                             </p>
-                            <span class="h2 m-0" style="color: rgb(144, 221, 151);">&dollar;{{ course.price|default:"0" }}</span>
+                            <span class="h2 m-0" style="color: rgb(144, 221, 151);">{{ course.price|default:"0" }} ريال سعودي </span>
                         </div>
                         <i class="material-icons icon-32pt text-20 ml-8pt">monetization_on</i>
                     </div>
@@ -372,7 +372,7 @@ td.selected{
                             <p class="card-title d-flex align-items-center">
                                 <b class="mediabout mediabout-dark">Total revenue</b>
                             </p>
-                            <span class="h2 m-0" style="color: rgb(144, 221, 151);">&dollar;{{ course.price|default:"0" }}</span>
+                            <span class="h2 m-0" style="color: rgb(144, 221, 151);">{{ course.price|default:"0" }} ريال سعودي </span>
                         </div>
                         <i class="material-icons icon-32pt text-20 ml-8pt">monetization_on</i>
                     </div>
@@ -464,7 +464,14 @@ td.selected{
                                 </tr>
                                 {% else %}
                                 <tr>
-                                    <td>There is no coupon</td>
+                                    <td>
+                                        {% get_current_language as lang %}
+                                        {% if lang == "ar" %}
+                                        <h3 style="text-align: center;">لا يوجد قسيمة شراء متاحة</h3>
+                                        {% else %}
+                                        <h3 style="text-align: center;">Sorry there are no coupon yet.</h3>
+                                        {% endif %}
+                                    </td>
                                 </tr>
                                 {% endif %}
                             </tbody>
@@ -554,6 +561,16 @@ td.selected{
                                             </div>
                                         </div>
                                         {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    <div class=" " style="background-color: transparent !important;">
+                                        
+                                             {% get_current_language as lang %}
+                                             {% if lang == "ar" %}
+                                             <h3 style="text-align: center;">لا يوجد تعليقات متاحة</h3>
+                                             {% else %}
+                                             <h3 style="text-align: center;">Sorry there are no comments yet.</h3>
+                                             {% endif %}
                                     </div>
                                     {% endif %}
                                 </div>

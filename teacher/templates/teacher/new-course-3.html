@@ -137,7 +137,7 @@
                         <div class="card">
                             <div class="card-body media" style="height: 55px !important;">
 
-                                <b style="font-size: medium;">مسابقة بالطبع</b>
+                                <b style="font-size: medium;">اختبار الحصول على الشهادة</b>
                             </div>
                         </div>
 
@@ -281,8 +281,8 @@
                                                     <select id="answer_{{ i }}"
                                                             class="form-control custom-select w-auto mb-2"
                                                             onchange="answerChange(this)">
-                                                        <option value="false">خاطئ</option>
-                                                        <option value="true">صيح</option>
+                                                        <option value="false">إجابة خاطئة</option>
+                                                        <option value="true">إجابة صحيحة</option>
                                                     </select>
                                                     <textarea id="content_{{ i }}" placeholder="أضف إجابتك هنا ..."
                                                                 rows="4" class="form-control"></textarea>
@@ -297,7 +297,7 @@
                 </div>
                 <div class="modal-footer justify-content-start">
                     <button type="button" class="btn btn-accent" onclick="addQuestion()">أضف سؤالا</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">قريب</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
                 </div>
             </div>
         </div>
@@ -347,9 +347,8 @@
                 let element = "#standard";
                 let html = `
             <li class="accordion__menu-link" onclick="editQuestion(` + idx + `)">
-                <span class="material-icons icon-16pt icon--left text-body">hourglass_empty</span>
+                <span class="material-icons icon-16pt icon--left text-body">contact_support</span>
                 <a class="flex">` + ele.title + `</a>
-                <span class="text-muted">Single Answer</span>
             </li>
             `;
                 $(element).before(html);
@@ -450,8 +449,8 @@
             }
             if (key > 1) {
                 swal({
-                    title: "Warning!!",
-                    text: "You must only one correct answer",
+                    title: "عذرا هناك خطأ ما",
+                    text: "ينبغى أن  تختار اجابة صحيحة واحدة",
                     closeOnConfirm: false,
                 });
 
@@ -483,8 +482,8 @@
                 flag = false;
             if (flag == false) {
                 swal({
-                    title: "Warning!!",
-                    text: "You must fill all fields",
+                    title: "عذرا هناك خطأ ما",
+                    text: "ينبغى أن تقوم بإدخال كل الحقول",
                     closeOnConfirm: false,
                 });
                 return;
@@ -496,8 +495,8 @@
             }
             if (cnt != 1) {
                 swal({
-                    title: "Warning!!",
-                    text: "You must only one correct answer",
+                    title: "عذرا هناك خطأ ما",
+                    text: "يجب أن تختار اجابة صحيحة واحدة فقط",
                     closeOnConfirm: false,
                 });
                 return;
@@ -525,9 +524,8 @@
                 let length = question_list.length;
                 let html = `
             <li class="accordion__menu-link" onclick="editQuestion(` + length + `)">
-                <span class="material-icons icon-16pt icon--left text-body">hourglass_empty</span>
+                <span class="material-icons icon-16pt icon--left text-body">contact_support</span>
                 <a class="flex">` + title + `</a>
-                <span class="text-muted">Single Answer</span>
             </li>
             `;
                 $(element).before(html);

@@ -619,7 +619,7 @@
                         $(".secondsubsubcategories").append(html);
                     }
                     if (data.msg == "already") {
-                        $("#div_error").html("Email is already exist.");
+                        $("#div_error").html("هذا الايميل مستخدم بالفعل.");
                         return false;
                     } else {
                         return false
@@ -663,7 +663,7 @@
                 success: function (data) {
                     console.log(data)
                     if (data.msg == "already") {
-                        $("#div_error").html("Email is already exist.");
+                        $("#div_error").html("هذا الايميل مستخدم بالفعل.");
                         return false;
                     } else {
                         {#$('#step-dot-3').trigger('click');#}
@@ -737,7 +737,7 @@
                         return false;
                     } else if (data.msg == 'already') {
 
-                        $("#div_error").html("Email is already exist.");
+                        $("#div_error").html("هذا الايميل مستخدم بالفعل.");
                         return false;
                     } else {
                         $("#div_error").html(data.msg);

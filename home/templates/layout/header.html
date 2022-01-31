@@ -1230,7 +1230,11 @@ body .container .content .studentnot-cont {
                                             <span class="item-meta">
                                                 <span class="item-name item-name-dark">{{ favourite.course_id.name }}</span>
                                                 <span class="meta-info">
-                                                    <span class="item-price item-price-dark">${{ favourite.course_id.price|unlocalize }}</span>
+                                                    {% if favourite.course_id.price == 0 %}
+                                                    <span class="item-price item-price-dark">مجانا</span>
+                                                    {% else %}
+                                                    <span class="item-price item-price-dark">{{ favourite.course_id.price|unlocalize }} ريال سعودي</span>
+                                                    {% endif %}
                                                 </span>
                                             </span>
                                             <span class="item-meta" style="margin-left:auto !important">
@@ -1331,7 +1335,7 @@ body .container .content .studentnot-cont {
                                             <span class="item-meta">
                                                 <span class="item-name item-name-dark">{{ cart.course_id.name }}</span>
                                                 <span class="meta-info">
-                                                    <span class="item-price item-price-dark">${{ cart.course_id.price|unlocalize }}</span>
+                                                    <span class="item-price item-price-dark">{{ cart.course_id.price|unlocalize }} ريال سعودي</span>
                                                  </span>
                                             </span>
                                             <span class="item-meta" style="margin-left:auto !important">

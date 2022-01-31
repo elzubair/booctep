@@ -159,6 +159,7 @@
         <div class="mdk-drawer-layout__content"  style="" data-perfect-scrollbar>
             <div class="app-messages__container d-flex flex-column h-100 pb-4" style="">
                 <div class="flex pt-4" style="">
+                    {% if noti_list %}
                     <div class="container page__container page__section" style="max-width: 90% !important; margin-top: 40px;">
                         <div class="table-responsive" style="border-radius: 5px 5px 0 0 !important;" data-toggle="lists" data-lists-sort-by="js-lists-values-date"
                          data-lists-sort-desc="true"
@@ -259,6 +260,36 @@
                         </table>
                     </div>
                     </div>
+                    {% else %}
+
+                    <div class="container page__container page__section" style="max-width: 90% !important; margin-top: 40px;">
+                        <div class="table-responsive" style="border-radius: 5px 5px 0 0 !important;" data-toggle="lists" data-lists-sort-by="js-lists-values-date"
+                         data-lists-sort-desc="true"
+                         data-lists-values='["js-lists-values-name", "js-lists-values-department", "js-lists-values-status", "js-lists-values-type", "js-lists-values-phone", "js-lists-values-date"]'>
+                            <tbody class="list bgk bgk-dark" id="noti_list" >
+                                <tr >
+                                    <td >
+
+                                        <center>
+                                            <div class="mdk-drawer-layout__content" id="err" data-perfect-scrollbar>
+                        
+                                                <h2 style="" class="mt-5 mediabout mediabout-dark mr-4">عذرا ليس هناك  تنبيهات بعد.</h2>
+                                                
+                                               
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <img src="{% static 'assets/img/no-messages.svg' %}" style="width: 20%; height: auto;" alt="">
+                                                </div>
+                                            </div>
+                                        </center>
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                    {% endif %}
                 </div>
                 <div class="container page__container page__container"
                      style=" bottom: 50px; position: absolute; height: 40px;">
