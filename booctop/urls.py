@@ -76,7 +76,7 @@ urlpatterns += i18n.i18n_patterns(
     url(r'^send_reset_password_email/$', sendResetPasswordEmail, name='reset password'),
     url(r'^reset_password/$', resetPassword, name='reset password'),
     url(r'^forgot_password/(?P<param>\w{0,50})$', forgotpassword, name='forgot password'),
-    url(r'^forgot_Changepassword/$', forgotChangepassword, name='forgot changepassword'),
+    url(r'^done_change_password/$', forgotChangepassword, name='forgot changepassword'),
     # url(r'^reset_password/$', resetPassword, name='reset password'),
     # url(r'^reset_password/', auth_views.PasswordResetView.as_view(template_name="registration/reset_password.html"), name ='reset password'),
     # url(r'^reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name = "registration/password_reset_sent.html"), name ='password reset done'),

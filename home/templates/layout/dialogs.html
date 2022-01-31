@@ -477,7 +477,7 @@
                     <div class="help-text">
                         {% if lang == "ar" %}
                         <h3 style="margin-bottom: 20px; margin-top: 40px;" class="mediabout mediabout-dark">أدخل كلمة المرور الجديدة</h3>
-                        <form action="/ar/forgot_Changepassword/" method="POST" class="text-center">
+                        <form action="/ar/done_change_password/" method="POST" class="text-center">
                             {% csrf_token %}
                             {{form}}
                         <input type="hidden" name="baseparam" id = "baseparamval" value="">
@@ -487,7 +487,7 @@
                     </form>
                         {% else %}
                         <h3 style="margin-bottom: 20px; margin-top: 40px;" class="mediabout mediabout-dark">{% trans 'Enter Password and Confirm Password.' %}</h3>
-                        <form action="/en/forgot_Changepassword/" method="POST" class="text-center">
+                        <form action="/en/done_change_password/" method="POST" class="text-center">
                             {% csrf_token %}
                             {{form}}
                         <input type="hidden" name="baseparam" id = "baseparamval" value="">
